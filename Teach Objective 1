@@ -1,0 +1,124 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<title>Objective 1</title>
+<script type="text/javascript">
+
+//This function collects the input and sends the values to the appropriate function. It then sends the output when ready.
+function doInputOutput(){
+var inputArray = document.getElementById('InputBox').value.split (","); //Array will be string values.
+//var inputArray = [34,7,11,76,32,63,5,78,2];       //A static array would look like this.
+var numberArray = convertToNumber(inputArray); 
+//var sortedArray = sortEvens(inputArray);     // Use this code to call the sort function if using a static array.
+var evensArray = sortEvens(numberArray);      //This code sends the array to be sorted.
+var oddsArray = sortOdds(numberArray);        //Another sorting function.
+var output = "The even numbers are: " + evensArray + ". The odd numbers are: " + oddsArray;
+document.getElementById('outputDiv').innerHTML = output; //This sends the sorted array to the outputDiv.
+document.getElementById('lengthOutputDiv').innerHTML = inputArray.length;
+}
+function convertToNumber(list){
+//This code coverts string values to number values, with a static array you don't need to convert.
+var retval = []; //I like to use retval because it is short for returned value and it makes sense to me.
+for (var index = 0;index < list.length;index++){
+retval[index] = parseFloat(list[index]); //it is good programming practice to leave the original input values unaltered.
+}
+return retval; //It is important to return retval outside of the loop or the loop will stop after one iteration.
+}
+function sortEvens(list){  //This function locates the even numbers in the array and builds a new array with those values.
+var retval = [];
+for (var index = 0; index < list.length; index++){
+if (list[index] % 2 == 0){  //This is a test for even/odd
+retval.push(list[index]);  //This code pushes the even value found by the test into the retval array.
+}
+} 
+return retval;
+}
+function sortOdds(list){  //This function locates the odd numbers in the array and builds a new array with those values.
+var retval = [];
+for (var index = 0; index < list.length; index++){
+if (list[index] % 2 != 0){  //This is a test for even/odd
+retval.push(list[index]);  //This code pushes the odd value found by the test into the retval array.
+}
+} 
+return retval;
+}
+//this function builds an associative array when it is called.
+function car(make,model,transmission,year,color){
+this.carMake = make;
+this.carModel = model;
+this.carTransmission = transmission;
+this.carYear = year;
+this.carColor = color;
+}
+function createSomeAssociativeArrays(){
+var Car1 = new car('Ford','Festiva','manual',1987,'white'); //This code calls the function car above that builds an associative array.
+var Car2 = new car('Nissan','Altima','automatic',2010,'blue');
+var Car3Make = document.getElementById('makeInputBox').value;
+var Car3Model = document.getElementById('modelInputBox').value;
+var Car3Transmission = document.getElementById('transmissionInputBox').value;
+var Car3Year = document.getElementById('yearInputBox').value;
+var Car3Color = document.getElementById('colorInputBox').value;
+var Car3 = new car(Car3Make,Car3Model,Car3Transmission,Car3Year,Car3Color);
+var output3 = "";
+var output1 = "The first car is a " + Car1.carColor + " " + Car1.carYear + " " +
+ Car1.carMake + " " + Car1.carModel + " with a " + Car1.carTransmission + " transmission."; 
+var output2 = "The second car is a " + Car2.carColor + " " + Car2.carYear + " " +
+ Car2.carMake + " " + Car2.carModel + " with a " + Car2.carTransmission + " transmission."; 
+//These if...else statements form an error code if input is not received.
+//This is done to avoid displaying a half built output under those conditions.
+ if(Car3Make == ""){ 
+output3 = "Please enter all information for car 3";
+} else if(Car3Model == ""){
+output3 = "Please enter all information for car 3";
+} else if(Car3Transmission == ""){
+output3 = "Please enter all information for car 3";
+} else if(Car3Year == ""){
+output3 = "Please enter all information for car 3";
+} else if(Car3Color == ""){
+output3 = "Please enter all information for car 3";
+} else {
+output3 = "The third car is a " + Car3.carColor + " " + Car3.carYear + " " +
+ Car3.carMake + " " + Car3.carModel + " with a " + Car3.carTransmission + "transmission.";  
+}
+document.getElementById('car1OutputDiv').innerHTML = output1;
+document.getElementById('car2OutputDiv').innerHTML = output2;
+document.getElementById('car3OutputDiv').innerHTML = output3;
+//I wanted to demonstrate that the array methods don't work for associative arrays so I wrote the code below. 
+//when I used it I received a console error which stated that car1 was not defined. It is on line 55 but 
+//the array methods don't work so it is considered undefined when you try to use them.
+//document.getElementById('illustrateOutputDiv').innerHTML = car1.length;
+}
+</script>
+</head>
+<body>
+<h1>Code to demonstrate Objective 1</h1>
+<h2>Loops, Conditional Statements, Functions, Variables, Parameters, Arrays, Associative Arrays</h2>
+
+<h3>The true power of programming is only seen when you combine these concepts.</h3>
+
+<p>Please enter a list of numbers separated by a comma.</p>
+<input type ="text" id="InputBox">
+<button type="button" onclick="doInputOutput()">Sort</button></br>
+ <div id="outputDiv"></div></br>
+You entered this many numbers
+ <div id="lengthOutputDiv"></div></br>
+  <p>Please enter some car facts for the third car</p></br>
+Make:
+<input type ="text" id="makeInputBox"></br>
+Model:
+<input type ="text" id="modelInputBox"></br>
+Transmission:
+<input type ="text" id="transmissionInputBox"></br>
+Year:
+<input type ="text" id="yearInputBox"></br>
+Color:
+<input type ="text" id="colorInputBox"></br>
+<button type="button" onclick="createSomeAssociativeArrays()">Sort</button></br>
+   <div id="car1OutputDiv"></div></br>
+   <div id="car2OutputDiv"></div></br>
+   <div id="car3OutputDiv"></div></br>
+Value of car1.length
+<div id="illustrateOutputDiv"></div></br>
+</body>
+</html>
