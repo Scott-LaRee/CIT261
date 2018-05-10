@@ -17,15 +17,16 @@ var output = "The even numbers are: " + evensArray + ". The odd numbers are: " +
 document.getElementById('outputDiv').innerHTML = output; //This sends the sorted array to the outputDiv.
 document.getElementById('lengthOutputDiv').innerHTML = inputArray.length;
 }
+//This function coverts string values to number values, with a static array you don't need to convert.
 function convertToNumber(list){
-//This code coverts string values to number values, with a static array you don't need to convert.
 var retval = []; //I like to use retval because it is short for returned value and it makes sense to me.
 for (var index = 0;index < list.length;index++){
 retval[index] = parseFloat(list[index]); //it is good programming practice to leave the original input values unaltered.
 }
 return retval; //It is important to return retval outside of the loop or the loop will stop after one iteration.
 }
-function sortEvens(list){  //This function locates the even numbers in the array and builds a new array with those values.
+//This function locates the even numbers in the array and builds a new array with those values.
+function sortEvens(list){  
 var retval = [];
 for (var index = 0; index < list.length; index++){
 if (list[index] % 2 == 0){  //This is a test for even/odd
@@ -34,7 +35,8 @@ retval.push(list[index]);  //This code pushes the even value found by the test i
 } 
 return retval;
 }
-function sortOdds(list){  //This function locates the odd numbers in the array and builds a new array with those values.
+//This function locates the odd numbers in the array and builds a new array with those values.
+function sortOdds(list){  
 var retval = [];
 for (var index = 0; index < list.length; index++){
 if (list[index] % 2 != 0){  //This is a test for even/odd
@@ -51,8 +53,9 @@ this.carTransmission = transmission;
 this.carYear = year;
 this.carColor = color;
 }
+//This function calls the function car above that builds an associative array.
 function createSomeAssociativeArrays(){
-var Car1 = new car('Ford','Festiva','manual',1987,'white'); //This code calls the function car above that builds an associative array.
+var Car1 = new car('Ford','Festiva','manual',1987,'white'); 
 var Car2 = new car('Nissan','Altima','automatic',2010,'blue');
 var Car3Make = document.getElementById('makeInputBox').value;
 var Car3Model = document.getElementById('modelInputBox').value;
@@ -84,10 +87,11 @@ output3 = "The third car is a " + Car3.carColor + " " + Car3.carYear + " " +
 document.getElementById('car1OutputDiv').innerHTML = output1;
 document.getElementById('car2OutputDiv').innerHTML = output2;
 document.getElementById('car3OutputDiv').innerHTML = output3;
-//I wanted to demonstrate that the array methods don't work for associative arrays so I wrote the code below. 
-//when I used it I received a console error which stated that car1 was not defined. It is on line 55 but 
-//the array methods don't work so it is considered undefined when you try to use them.
-//document.getElementById('illustrateOutputDiv').innerHTML = car1.length;
+/*I wanted to demonstrate that the array methods don't work for associative arrays so I wrote the code below. 
+* when I used it I received a console error which stated that car1 was not defined. It is on line 55 but 
+* the array methods don't work so it is considered undefined when you try to use them.
+* document.getElementById('illustrateOutputDiv').innerHTML = car1.length;
+*/
 }
 </script>
 </head>
@@ -118,7 +122,7 @@ Color:
    <div id="car1OutputDiv"></div></br>
    <div id="car2OutputDiv"></div></br>
    <div id="car3OutputDiv"></div></br>
-Value of car1.length
-<div id="illustrateOutputDiv"></div></br>
+<!--Value of car1.length
+<div id="illustrateOutputDiv"></div></br>-->
 </body>
 </html>
