@@ -68,6 +68,10 @@ var output1 = "The first car is a " + Car1.carColor + " " + Car1.carYear + " " +
  Car1.carMake + " " + Car1.carModel + " with a " + Car1.carTransmission + " transmission."; 
 var output2 = "The second car is a " + Car2.carColor + " " + Car2.carYear + " " +
  Car2.carMake + " " + Car2.carModel + " with a " + Car2.carTransmission + " transmission."; 
+var car4 = {"make":"Chevy", "model": "Malibu","transmission":"automatic","year":"2006","color":"grey"};
+var output4 = "The car in the associative array is a " + car4.color + " " + car4.year + " " 
++ car4.make + " " + car4.model + " with an " + car4.transmission + " transmission.";
+
 //These if...else statements form an error code if input is not received.
 //This is done to avoid displaying a half built output under those conditions.
  if(Car3Make == ""){ 
@@ -82,16 +86,13 @@ output3 = "Please enter all information for car 3";
 output3 = "Please enter all information for car 3";
 } else {
 output3 = "The third car is a " + Car3.carColor + " " + Car3.carYear + " " +
- Car3.carMake + " " + Car3.carModel + " with a " + Car3.carTransmission + "transmission.";  
+ Car3.carMake + " " + Car3.carModel + " with a(n) " + Car3.carTransmission + "transmission.";  
+
 }
 document.getElementById('car1OutputDiv').innerHTML = output1;
 document.getElementById('car2OutputDiv').innerHTML = output2;
 document.getElementById('car3OutputDiv').innerHTML = output3;
-/*I wanted to demonstrate that the array methods don't work for associative arrays so I wrote the code below. 
-* when I used it I received a console error which stated that car1 was not defined. It is on line 55 but 
-* the array methods don't work so it is considered undefined when you try to use them.
-* document.getElementById('illustrateOutputDiv').innerHTML = car1.length;
-*/
+document.getElementById('car4OutputDiv').innerHTML = output4;
 }
 </script>
 </head>
@@ -118,11 +119,11 @@ Year:
 <input type ="text" id="yearInputBox"></br>
 Color:
 <input type ="text" id="colorInputBox"></br>
-<button type="button" onclick="createSomeAssociativeArrays()">Sort</button></br>
+<button type="button" onclick="createSomeAssociativeArrays()">Display</button></br>
    <div id="car1OutputDiv"></div></br>
    <div id="car2OutputDiv"></div></br>
    <div id="car3OutputDiv"></div></br>
-<!--Value of car1.length
-<div id="illustrateOutputDiv"></div></br>-->
+   <div id="car4OutputDiv"></div></br>
+
 </body>
 </html>
