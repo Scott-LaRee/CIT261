@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<title>Scripture Mastery</title>
+<script type="text/javascript">
+/* Defining Table
+*Input 
+*Processing calculates 
+*output
+*This code was programmed by LaRee Scott
+*/
+
+
+// This function creates the scripture reference objects
+function Reference(reference, textQuote)
+{
+this.reference = reference;
+this.textQuote = textQuote;
+}
+
+// These functions provide the information for the scripture references
+function createReference1Nephi3Seven()
+{
+var text                  = createText1Nephi3Seven();
+var firstNephi3Seven         = new Reference ("1 Nephi 3:7",text);
+return firstNephi3Seven;
+}
+
+function createReference2Nephi2TwentyFive()
+{
+var text                  = createText2Nephi2TwentyFive();
+var secondNephi2TwentyFive       = new Reference ("2 Nephi 2:25",text);
+return secondNephi2TwentyFive;
+}
+
+function createReference2Nephi2TwentySeven()
+{
+var text                  = createText2Nephi2TwentySeven();
+var secondNephi2TwentySeven       = new Reference ("2 Nephi 2:27",text);
+return secondNephi2TwentySeven;
+}
+
+function createReference2Nephi9TwentyEight29()
+{
+var text                  = createText2Nephi9TwentyEight29();
+var secondNephi9TwentyEight29    = new Reference ("2 Nephi 9:28-29",text);
+return secondNephi9TwentyEight29;
+}
+
+function createReference2Nephi25TwentyThree26()
+{
+var text                  = createText2Nephi25TwentyThree26();
+var secondNephi25TwentyThree26   = new Reference ("2 Nephi 25:23,26",text);
+return secondNephi25TwentyThree26;
+}
+
+function createReference2Nephi28Seven9()
+{
+var text                  = createText2Nephi28Seven9();
+var secondNephi28Seven9     = new Reference ("2 Nephi 28:7-9",text);
+return secondNephi28Seven9;
+}
+
+function createReference2Nephi31Nineteen20()
+{
+var text                  = createText2Nephi31Nineteen20();
+var secondNephi31Nineteen20   = new Reference ("2 Nephi 31:19-20",text);
+return secondNephi31Nineteen20;
+}
+
+function createReference2Nephi32Three()
+{
+var text                  = createText2Nephi32Three();
+var secondNephi32Three       = new Reference ("2 Nephi 32:3",text);
+return secondNephi32Three;
+}
+
+function createReference2Nephi32Eight9()
+{
+var text                  = createText2Nephi32Eight9();
+var secondNephi32Eight9     = new Reference ("2 Nephi 32:8-9",text);
+return secondNephi32Eight9;
+}
+
+function createReferenceMosiah2Seventeen()
+{
+var text                  = createTextMosiah2Seventeen();
+var mosiah2Seventeen            = new Reference ("Mosiah 2:17",text);
+return mosiah2Seventeen;
+}
+
+function createReferenceMosiah3Nineteen()
+{var text                 = createTextMosiah3Nineteen();
+var mosiah3Nineteen            = new Reference ("Mosiah 3:19",text);
+return mosiah3Nineteen;
+}
+
+function createReferenceMosiah4Thirty()
+{
+var text                  = createTextMosiah4Thirty();
+var mosiah4Thirty            = new Reference ("Mosiah 4:30",text);
+return mosiah4Thirty;
+}
+
+function createReferenceAlma7Eleven13()
+{
+var text                  = createTextAlma7Eleven13();
+var alma7Eleven13           = new Reference ("Alma 7:11-13",text);
+return alma7Eleven13;
+}
+
+function createReferenceAlma32TwentyOne()
+{
+var text                  = createTextAlma32TwentyOne();
+var alma32TwentyOne             = new Reference ("Alma 32:21",text);
+return alma32TwentyOne;
+}
+
+function createReferenceAlma37ThirtyFive()
+{
+var text                  = createTextAlma37ThirtyFive();
+var alma37ThirtyFive             = new Reference ("Alma 37:35",text);
+return alma37ThirtyFive;
+}
+
+function createReferenceAlma39Nine()
+{
+var text                  = createTextAlma39Nine();
+var alma39Nine              = new Reference ("Alma 39:9",text);
+return alma39Nine;
+}
+
+function createReferenceAlma41Ten()
+{
+var text                  = createTextAlma41Ten();
+var alma41Ten             = new Reference ("Alma 41:10",text);
+return alma41Ten;
+}
+
+function createReferenceHelaman5Twelve()
+{
+var text                  = createTextHelaman5Twelve();
+var helaman5Twelve           = new Reference ("Helaman 5:12",text);
+return helaman5Twelve;
+}
+
+function createReference3Nephi12FortyEight()
+{
+var text                  = createText3Nephi12FortyEight();
+var thirdNephi12FortyEight       = new Reference ("3 Nephi 12:48",text);
+return thirdNephi12FortyEight;
+}
+
+function createReference3Nephi18Fifteen20TweentyOne()
+{
+var text                  = createText3Nephi18Fifteen20TweentyOne();
+var thirdNephi18Fifteen20TweentyOne = new Reference ("3 Nephi 18:15,20-21",text);
+return thirdNephi18Fifteen20TweentyOne;
+}
+
+function createReferenceEther12Six()
+{
+var text                  = createTextEther12Six();
+var ether12Six           = new Reference ("Ether 12:6",text);
+return ether12Six;
+}
+
+function createReferenceEther12TwentySeven()
+{
+var text                  = createTextEther12TwentySeven();
+var ether12TwentySeven            = new Reference ("Ether 12:27",text);
+return ether12TwentySeven;
+}
+
+function createReferenceMoroni7FortyOne()
+{
+var text                  = createTextMoroni7FortyOne();
+var moroni7FortyOne            = new Reference ("Moroni 7:41",text);
+return moroni7FortyOne;
+}
+
+function createReferenceMoroni7FortyFive47FortyEight()
+{
+var text                  = createTextMoroni7FortyFive47FortyEight();
+var moroni7FortyFive47FortyEight     = new Reference ("Moroni 7:45,47-48",text);
+return moroni7FortyFive47FortyEight;
+}
+
+function createReferenceMoroni10Four5()
+{
+var text                  = createTextMoroni10Four5();
+var moroni10Four5          = new Reference ("Moroni 10:4-5",text);
+return moroni10Four5;
+}
+
+//These functions provide the text to the reference creation functions
+function createText1Nephi3Seven()
+{
+var text                  = "7 And it came to pass that I, Nephi, said unto my " 
+							+ "father: I will go and do the things which the "
+							+ "Lord hath commanded, for I know that the Lord "
+							+ "giveth no commandments unto the children of men,"
+							+ " save he shall prepare a way for them that they "
+							+ "may accomplish the thing which he commandeth them." + "</br>";
+return text;
+} 
+
+function createText2Nephi2TwentyFive()
+{
+var text        = "25 Adam fell that men might be; and men are, that "
+							+ "they might have joy." + "</br>";
+return text;
+}
+
+function createText2Nephi2TwentySeven()
+{
+var text                  = "27 Wherefore, men are free according to the flesh;"
+							+ " and all things are given them which are "
+							+ "expedient unto man. And they are free to choose "
+							+ "liberty and eternal life, through the great "
+							+ "Mediator of all men, or to choose captivity and "
+							+ "death, according to the captivity and power of "
+							+ "the devil; for he seeketh that all men might be "
+							+ "miserable like unto himself." + "</br>";
+return text;
+}
+
+function createText2Nephi9TwentyEight29()
+{				
+var text                  = "28 O that cunning plan of the evil one! O the "
+							+ "vainness, and the frailties, and the foolishness"
+							+ " of men! When they are learned they think they "
+							+ "are wise, and they hearken not unto the counsel "
+							+ "of God, for they set it aside, supposing they " 
+					        + "know of themselves, wherefore, their wisdom is "
+							+ "foolishness and it profiteth them not. And they "
+							+ "shall perish. " + "<br>" + "<br>" + " 29 But to be learned is good if"
+							+ " they hearken unto the counsels of God." + "</br>";
+return text;
+}
+			
+function createText2Nephi25TwentyThree26()
+{				
+var text                    = "23 For we labor diligently to write, to persuade "
+							+ "our children, and also our brethren, to believe "
+							+ "in Christ, and to be reconciled to God; for we "
+							+ "know that it is by grace that we are saved, "
+							+ "after all we can do. " + "<br>" + "<br>" + "26 And we talk of "
+							+ "Christ, we rejoice in Christ, we preach of "
+							+ "Christ, we prophesy of Christ, and we write "
+							+ "according to our prophecies, that our children "
+							+ "may know to what source they may look for a "
+							+ "remission of their sins." + "</br>";
+return text;
+}
+
+function createText2Nephi28Seven9()
+{				
+var text                  = "7 Yea, and there shall be many which shall say: "
+							+ "Eat, drink, and be merry, for tomorrow we die; "
+						    + "and it shall be well with us. " + "<br>" + "<br>" + "8 And there "
+							+ "shall also be many which shall say: Eat, drink, "
+							+ "and be merry; nevertheless, fear God—he will "
+							+ "justify in committing a little sin; yea, lie a "
+							+ "little, take the advantage of one because of his"
+							+ " words, dig a pit for thy neighbor; there is no "
+							+ "harm in this; and do all these things, for "
+							+ "tomorrow we die; and if it so be that we are "
+							+ "guilty, God will beat us with a few stripes, and"
+							+ " at last we shall be saved in the kingdom of "
+							+ "God. " + "<br>" + "<br>" + "9 Yea, and there shall be many which "
+							+ "shall teach after this manner, false and vain "
+							+ "and foolish doctrines, and shall be puffed up in"
+							+ " their hearts, and shall seek deep to hide their"
+							+ " counsels from the Lord; and their works shall "
+							+ "be in the dark." + "</br>";
+return text;
+}
+
+function createText2Nephi31Nineteen20()
+{				
+var text                  = "19 And now, my beloved brethren, after ye have "
+							+ "gotten into this strait and narrow path, I would"
+							+ " ask if all is done? Behold, I say unto you, Nay"
+							+ "; for ye have not come thus far save it were by "
+							+ "the word of Christ with unshaken faith in him, "
+							+ "relying wholly upon the merits of him who is "
+							+ "mighty to save." + "<br>" + "<br>" + "20 Wherefore, ye must press "
+							+ "forward with a steadfastness in Christ, having a"
+							+ "perfect brightness of hope, and a love of God "
+							+ "and of all men. Wherefore, if ye shall press "
+							+ "forward, feasting upon the word of Christ, and "
+							+ "endure to the end, behold, thus saith the Father"
+							+ ": Ye shall have eternal life." + "</br>";
+return text;
+}
+
+function createText2Nephi32Three()
+{				
+var text                  = "3 Angels speak by the power of the Holy Ghost; "
+							+ "wherefore, they speak the words of Christ. "
+							+ "Wherefore, I said unto you, feast upon the words"
+							+ " of Christ; for behold, the words of Christ will" 
+							+ " tell you all things what ye should do." + "</br>";
+return text;
+}
+function createText2Nephi32Eight9()
+{			
+var text                  = "8 And now, my beloved brethren, I perceive that ye" 
+							+ " ponder still in your hearts; and it grieveth me" 
+							+ " that I must speak concerning this thing. For if" 
+							+ " ye would hearken unto the Spirit which teacheth" 
+							+ " a man to pray, ye would know that ye must pray;"
+							+ " for the evil spirit teacheth not a man to pray," 
+							+ " but teacheth him that he must not pray. " + "<br>" + "<br>" + "9 But"
+							+ " behold, I say unto you that ye must pray always"
+							+ ", and not faint; that ye must not perform any "
+							+ "thing unto the Lord save in the first place ye "
+							+ "shall pray unto the Father in the name of Christ"
+							+ ", that he will consecrate thy performance unto "
+							+ "thee, that thy performance may be for the "
+							+ "welfare of thy soul." + "</br>";
+return text;
+}
+
+function createTextMosiah2Seventeen()
+{				
+var text                  = "17 And behold, I tell you these things that ye may" 
+							+ " learn wisdom; that ye may learn that when ye "
+							+ "are in the service of your fellow beings ye are "
+							+ "only in the service of your God." + "</br>";
+return text;
+}
+
+function createTextMosiah3Nineteen()
+{				
+var text                  = "19 For the natural man is an enemy to God, and has" 
+							+ " been from the fall of Adam, and will be, "
+						    + "forever and ever, unless he yields to the "
+							+ "enticings of the Holy Spirit, and putteth off "
+							+ "the natural man and becometh a saint through the" 
+							+ " atonement of Christ the Lord, and becometh as a"
+							+ " child, submissive, meek, humble, patient, full "
+							+ "of love, willing to submit to all things which "
+							+ "the Lord seeth fit to inflict upon him, even as "
+							+ "a child doth submit to his father." + "</br>";
+return text;
+}
+
+function createTextMosiah4Thirty()
+{				
+var text                  = "30 But this much I can tell you, that if ye do not" 
+							+ " watch yourselves, and your thoughts, and your "
+							+ "words, and your deeds, and observe the "
+							+ "commandments of God, and continue in the faith "
+							+ "of what ye have heard concerning the coming of "
+							+ "our Lord, even unto the end of your lives, ye "
+							+ "must perish. And now, O man, remember, and "
+							+ "perish not." + "</br>";
+return text;
+}
+
+function createTextAlma7Eleven13()
+{				
+var text                  = "11 And he shall go forth, suffering pains and "
+							+ "afflictions and temptations of every kind; and "
+							+ "this that the word might be fulfilled which "
+							+ "saith he will take upon him the pains and the "
+							+ "sicknesses of his people. " + "<br>" + "<br>" + "12 And he will take "
+							+ "upon him death, that he may loose the bands of "
+							+ "death which bind his people; and he will take "
+							+ "upon him their infirmities, that his bowels may "
+							+ "be filled with mercy, according to the flesh, "
+							+ "that he may know according to the flesh how to "
+							+ "succor his people according to their infirmities." 
+							+ "<br>" + "<br>" + "13 Now the Spirit knoweth all things; "
+							+ "nevertheless the Son of God suffereth according "
+							+ "to the flesh that he might take upon him the "
+							+ "sins of his people, that he might blot out their" 
+							+ " transgressions according to the power of his "
+							+ "deliverance; and now behold, this is the "
+							+ "testimony which is in me." + "</br>";
+return text;
+}
+
+function createTextAlma32TwentyOne()
+{				
+var text                  = "21 And now as I said concerning faith—faith is not" 
+							+ " to have a perfect knowledge of things; "
+							+ "therefore if ye have faith ye hope for things "
+							+ "which are not seen, which are true." + "</br>"; 
+return text;
+}
+
+function createTextAlma37ThirtyFive()
+{				
+var text                  = "35 O, remember, my son, and learn wisdom in thy "
+							+ "youth; yea, learn in thy youth to keep the "
+							+ "commandments of God." + "</br>";
+return text;
+}
+
+function createTextAlma39Nine()
+{				
+var text                  = "9 Now my son, I would that ye should repent and "
+							+ "forsake your sins, and go no more after the "
+							+ "lusts of your eyes, but cross yourself in all "
+							+ "these things; for except ye do this ye can in "
+							+ "nowise inherit the kingdom of God. Oh, remember," 
+							+ " and take it upon you, and cross yourself in "
+							+ "these things." + "</br>";
+return text;
+}
+
+function createTextAlma41Ten()
+{			
+var text                  = "10 Do not suppose, because it has been spoken "
+							+ "concerning restoration, that ye shall be "
+							+ "restored from sin to happiness. Behold, I say "
+							+ "unto you, wickedness never was happiness." + "</br>";
+return text;
+}
+
+function createTextHelaman5Twelve()
+{				
+var text                  = "12 And now, my sons, remember, remember that it is" 
+							+ " upon the rock of our Redeemer, who is Christ, "
+							+ "the Son of God, that ye must build your "
+							+ "foundation; that when the devil shall send forth" 
+							+ " his mighty winds, yea, his shafts in the "
+							+ "whirlwind, yea, when all his hail and his mighty" 
+							+ " storm shall beat upon you, it shall have no "
+							+ "power over you to drag you down to the gulf of "
+							+ "misery and endless wo, because of the rock upon "
+							+ "which ye are built, which is a sure foundation, "
+							+ "a foundation whereon if men build they cannot "
+							+ "fall." + "</br>";
+return text;
+}
+
+function createText3Nephi12FortyEight()
+{				
+var text                  = "48 Therefore I would that ye should be perfect "
+							+ "even as I, or your Father who is in heaven is "
+							+ "perfect." + "</br>";
+return text;
+}
+
+function createText3Nephi18Fifteen20TweentyOne()
+{				
+var text                  = "15 Verily, verily, I say unto you, ye must watch "
+							+ "and pray always, lest ye be tempted by the devil"
+							+ ", and ye be led away captive by him. " + "<br>" + "<br>" + "20 And "
+							+ "whatsoever ye shall ask the Father in my name, "
+							+ "which is right, believing that ye shall receive," 
+							+ " behold it shall be given unto you. " + "<br>" + "<br>" + "21 Pray in"
+							+ " your families unto the Father, always in my "
+							+ "name, that your wives and your children may be "
+							+ "blessed." + "</br>";
+return text;
+}
+
+function createTextEther12Six()
+{			
+var text                  = "6 And now, I, Moroni, would speak somewhat "
+							+ "concerning these things; I would show unto the "
+						    + "world that faith is things which are hoped for "
+							+ "and not seen; wherefore, dispute not because ye "
+						    + "see not, for ye receive no witness until after "
+							+ "the trial of your faith." + "</br>";
+return text;
+}
+
+function createTextEther12TwentySeven()
+{				
+var text                  = "27 And if men come unto me I will show unto them "
+							+ "their weakness. I give unto men weakness that "
+							+ "they may be humble; and my grace is sufficient "
+							+ "for all men that humble themselves before me; "
+							+ "for if they humble themselves before me, and "
+							+ "have faith in me, then will I make weak things "
+							+ "become strong unto them." + "</br>";
+return text;
+}
+
+function createTextMoroni7FortyOne()
+{				
+var text                  = "41 And what is it that ye shall hope for? Behold I"
+							+ " say unto you that ye shall have hope through "
+							+ "the atonement of Christ and the power of his "
+							+ "resurrection, to be raised unto life eternal, "
+							+ "and this because of your faith in him according "
+							+ "to the promise." + "</br>";
+return text;
+}
+
+function createTextMoroni7FortyFive47FortyEight()
+{
+var text                  = "45 And charity suffereth long, and is kind, and "
+							+ "envieth not, and is not puffed up, seeketh not "
+							+ "her own, is not easily provoked, thinketh no "
+							+ "evil, and rejoiceth not in iniquity but "
+						    + "rejoiceth in the truth, beareth all things, "
+							+ "believeth all things, hopeth all things, "
+							+ "endureth all things. " + "<br>" + "<br>" + "47 But charity is the "
+							+ "pure love of Christ, and it endureth forever; "
+							+ "and whoso is found possessed of it at the last "
+							+ "day, it shall be well with him. " + "<br>" + "<br>" + "48 Wherefore, "
+							+ "my beloved brethren, pray unto the Father with "
+						    + "all the energy of heart, that ye may be filled "
+							+ "with this love, which he hath bestowed upon all "
+							+ "who are true followers of his Son, Jesus Christ;"
+							+ " that ye may become the sons of God; that when he" 
+							+ "shall appear we shall be like him, for we shall "
+							+ "see him as he is; that we may have this hope; "
+							+ "that we may be purified even as he is pure. Amen." + "</br>";
+return text;
+}
+
+function createTextMoroni10Four5()
+{				
+var text                  = "4 And when ye shall receive these things, I would "
+							+ "exhort you that ye would ask God, the Eternal "
+							+ "Father, in the name of Christ, if these things "
+							+ "are not true; and if ye shall ask with a sincere" 
+							+ " heart, with real intent, having faith in Christ"
+							+ ", he will manifest the truth of it unto you, by "
+							+ "the power of the Holy Ghost. " + "<br>" + "<br>" + "5 And by the "
+							+ "power of the Holy Ghost ye may know the truth of" 
+							+ " all things." + "</br>";
+return text;
+}
+
+//function to create a random number
+function createRandomNumber()
+{
+var random = Math.random();
+var product = random * 25;
+var number = parseInt(product);
+return number;
+}
+
+//function to demonstrate how to stringify into JSON
+function stringifyOneReference()
+{
+var reference = createReference1Nephi3Seven();
+var firstNephi3SevenJSON = JSON.stringify(reference);
+document.getElementById('stringifyOutputDiv').innerHTML = firstNephi3SevenJSON;
+return firstNephi3SevenJSON;
+}
+
+//function to demonstrate how to parse from JSON
+function parseSomeJSON()
+{
+var referenceInJSON = stringifyOneReference();
+var parsedReference = JSON.parse(referenceInJSON);
+document.getElementById('parseOutputDiv').innerHTML = parsedReference.reference 
++ "</br></br>" + parsedReference.textQuote + "</br>";
+}
+
+//This array is all of the reference creation functions.
+//I put it in an array so that I could sort through them randomly
+function holdAndProvideReferenceCreationFunctionArray()
+{
+var referenceCreationArray = [createReference1Nephi3Seven(),
+                    createReference2Nephi2TwentyFive(),
+					createReference2Nephi2TwentySeven(),
+					createReference2Nephi9TwentyEight29(),
+					createReference2Nephi25TwentyThree26(),
+					createReference2Nephi28Seven9(),
+					createReference2Nephi31Nineteen20(),
+					createReference2Nephi32Three(),
+					createReference2Nephi32Eight9(),
+					createReferenceMosiah2Seventeen(),
+					createReferenceMosiah3Nineteen(),
+					createReferenceMosiah4Thirty(),
+					createReferenceAlma7Eleven13(),
+					createReferenceAlma32TwentyOne(),
+					createReferenceAlma37ThirtyFive(),
+					createReferenceAlma39Nine(),
+					createReferenceAlma41Ten(),
+                    createReferenceHelaman5Twelve(),
+                    createReference3Nephi12FortyEight(),
+                    createReference3Nephi18Fifteen20TweentyOne(),
+                    createReferenceEther12Six(),
+                    createReferenceEther12TwentySeven(),
+                    createReferenceMoroni7FortyOne(),
+                    createReferenceMoroni7FortyFive47FortyEight(),
+                    createReferenceMoroni10Four5()];
+return referenceCreationArray;
+}
+
+//function to use the random number to display a random scripture
+function chooseScripture()
+{
+var scriptureArray = holdAndProvideReferenceCreationFunctionArray();
+var randomIndex = createRandomNumber();
+var scripture = scriptureArray[randomIndex];
+
+document.getElementById('outputDiv').innerHTML = scripture.reference + "<br>" 
++ "<br>" + scripture.textQuote;
+}
+</script>
+</head>
+<body>
+<h1>Book of Mormon Scripture Mastery</h1>
+<p>Click this button to see a random Book of Mormon scripture.</p></br>
+<button type="button" onclick="chooseScripture()">Display</button></br></br>
+ <div id="outputDiv"></div></br>
+ <p>Click this button to see 1Nephi 3:7 as a JSON object, and after it has
+ been parsed.</p>
+ <button type="button" onclick="parseSomeJSON()">Display</button></br></br>
+ <div id="stringifyOutputDiv"></div></br>
+ <div id="parseOutputDiv"></div></br>
+ 
+</body>
+<html>
