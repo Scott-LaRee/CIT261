@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<title>Consume JSON using XMLHTTPRequest</title>
+<link id="styleOfPage" type="text/css" rel="StyleSheet" 
+	href="default_style.css" />
+<script>	
+function getRequest(){
+
+var ajaxRequest = new XMLHttpRequest();
+var response = "";
+
+ajaxRequest.open("GET", "https://httpbin.org/get", true);
+
+ajaxRequest.onreadystatechange = function() {
+
+	if (ajaxRequest.readyState === 4) {
+		var status = ajaxRequest.status;
+		if ((status >= 200 && status < 300)
+			|| status === 304) {
+				response = ajaxRequest.responseText;
+				JSON.parse(response);
+				document.getElementById('outputDiv').innerHTML = response;
+			} else {
+				alert("Something bad happened");
+			}
+	}
+}
+
+ajaxRequest.send(null);
+
+
+alert(ajaxRequest.responseText + "This demonstrates that with asynchronous HTTPRequest"
++ " the page continues to load while the request processes. That is why this "
++ "displays first.");
+}
+
+function detectCustomization(){
+	var styleSheet = localStorage.getItem('styleKey');
+	if (styleSheet != null){
+	document.getElementById('styleOfPage').setAttribute('href', styleSheet + ".css");
+}}
+</script>
+</head>
+<body onload="detectCustomization()">
+<p>This button will send the HTTPRequest using the readyState method. <br>
+The data retrieved is test information from a third party website</p>
+ <button type="button" onclick="getRequest()">Send Request</button><br>
+<div id="outputDiv"></div>
+</body>
+</html>

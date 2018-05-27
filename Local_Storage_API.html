@@ -1,0 +1,203 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<title>Local Storage</title>
+	<link id="styleOfPage" type="text/css" rel="StyleSheet" 
+	href="default_style.css" />
+<script>	
+/* Defining Table
+*Input 
+*Processing calculates 
+*output
+*This code was programmed by LaRee Scott
+*/
+
+//function displays the appropriate greeting
+function displayGreeting()
+{
+   var name = localStorage.getItem('name');
+   var greeting = "";
+   
+   if (name == "Brother Baer")
+   {
+   greeting = "Welcome back, Brother Baer! I hope you can see how much"
+   + " I am learning!"
+   }
+   else if (name != null)
+   {
+     greeting = customizeGreeting();
+   }
+   else
+   {
+      greeting = "Welcome to my page!";
+   }
+   document.getElementById('outputDiv').innerHTML = greeting;   
+}
+
+//function tests to see if localStorage is supported
+function localStorageSupported(type)
+{
+   try 
+   {
+      var storage = window[type],
+	     data = 'Can_I_store_my_data_locally?';
+		 storage.setItem(data, data);
+		 storage.removeItem(data);
+		 return true;
+   }
+   catch(error)
+   {
+     return error instanceof DOMExeption && (
+	 error.code === 22 || 
+	 error.code === 1014 || 
+	 error.name === 'QuotaExceededError' ||
+	 error.name === 'NS_ERROR_DOM_QUOTA_REACHED') && 
+	 storage.length !== 0;
+   }
+}
+
+//This function stores the name entered by the user to localStorage
+function storeName(userName)
+{
+   localStorage.setItem( 'name',userName);
+}
+
+//This function stores the color entered by the user in local Storage
+function storeColor (favoriteColor)
+{
+	var storedValue = localStorage.setItem('styleKey', favoriteColor + "_style");
+	if (storedValue = "_style")
+	{
+	   document.getElementById('styleOfPage').setAttribute('href', "default_style.css");
+
+	}
+}
+
+//This function activates the prompt to the user for their favorite color and activates
+//the program to store the value received.
+function personalizeColor ()
+{
+      var color = promptColor();
+	  storeColor(color);
+	  
+}
+
+//This function activates the prompt to user for their name and sends 
+//that value to be stored
+function personalizeName ()
+{
+      var name = promptName();
+      storeName(name);
+}
+
+//This function activates the functions that prompt for input if localStorage
+//is supported.
+function personalizePage ()
+{
+   if (localStorageSupported('localStorage'))
+   {
+      personalizeName();
+	  personalizeColor();
+      customizePage();
+   }
+   //An error message if localStorage is not supported
+   else
+   {
+      var errorMesssage = "I am sorry but your browser does not currently support" + 
+      " local storage. Personalization is not possible at this time.";
+      document.getElementById('noLocalStorageDiv').innerHTML = errorMessage;
+   }
+}
+ 
+//This function prompts the user for their name 
+function promptName()
+{
+//make a do while loop
+  var name = prompt("Please enter your name.", );
+  if (name == "")
+  {
+     alert("Personalization feature works best if you share your name.");
+	 name = "Annonymous";
+  }
+  return name;
+}
+
+//This function prompts the user for their favorite color
+function promptColor()
+{
+  var color = prompt("Please enter your favorite color." 
+  + " Supported colors are : red, orange, yellow, green, blue, and purple.", "");
+  if (color != ("red" || "Red") &&
+	  color != ("orange" || "Orange") &&
+	  color != ("yellow" || "Yellow") &&
+	  color != ("green" || "Green") &&
+	  color != ("blue" || "Blue") &&
+	  color != ("purple" || "Purple"))
+   {
+	  alert("Please enter a valid color. red, yellow, orange, green, blue, or purple.");
+	  color = "default";
+   }
+   return color;
+}
+
+//This function tries to retrieve the user's name and if there is a value
+//it customizes the greeting.
+function customizeGreeting(name)
+{
+   var name = localStorage.getItem('name');
+   if (name != null && name != "")
+   {
+   var greeting = "Welcome back, " + name + "! Thank you for your " +
+	 "continued interest in my learning!";
+   }  
+   return greeting;   
+}
+
+//This function tries to retrieve the favorite color from localStorage
+// and if there is a value it customizes the colors of the page.
+function customizePage()
+{
+	var customColor = localStorage.getItem('styleKey');
+	if (customColor != null && customColor != "")
+	{
+		document.getElementById('styleOfPage').setAttribute('href', customColor + ".css");
+	}
+	var greeting = displayGreeting();
+}
+
+//This function resets the page to the default styleSheet and greeting
+function resetPage()
+{
+   localStorage.removeItem('styleKey');	
+   localStorage.removeItem('name');
+   displayGreeting();
+   document.getElementById('styleOfPage').setAttribute('href', "default_style.css");
+}
+ </script>
+ </head>
+ 
+ <body onload="customizePage()">
+ <div id= "content">
+ <div id="outputDiv"></div>
+ <h1>Personalization Demonstration</h1>
+ <p>The purpose of this page is to demonstrate what I have learned about
+ personalization through the use of local storage.</p><br>
+ <p>Local Storage allows data to be stored locally for reuse.</p><br>
+ <div id="noLocalStorageDiv"></div><br>
+ <p>Click the button below to personalize this page.</p>
+ <button type="button" onclick="personalizePage()">Personalize</button><br>
+ <p>Click the button below to change the color settings</p>
+ <button type="button" onclick="personalizeColor(),customizePage()">Change Color</button><br>
+ <p>Click this button to remove the personalization.</p>
+ <button type="button" onclick="resetPage()">Reset</button><br>
+ <div id="outputDiv"></div>
+ <p>Credit where credit is due. I spent 7 hours trying to figure out how to 
+ change between the styleSheets. The reason I had so much trouble is that I didn't know what
+ CSS was before today. I was able to adapt the code and concepts at 
+ https://stackoverflow.com/questions/47736997/swap-style-sheet-with-localstorage
+ to help solve my dilema.</p>
+ </div>
+ </body>
+ </html>
+ 
