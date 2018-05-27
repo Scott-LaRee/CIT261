@@ -3,6 +3,8 @@
 <head>
 <meta charset="utf-8">
 <title>Scripture Mastery</title>
+	<link id="styleOfPage" type="text/css" rel="StyleSheet" 
+	href="default_style.css" />
 <script type="text/javascript">
 /* Defining Table
 *Input 
@@ -10,7 +12,13 @@
 *output
 *This code was programmed by LaRee Scott
 */
-
+//This function detects customization
+function detectCustomization(){
+	var styleSheet = localStorage.getItem('styleKey');
+	if (styleSheet != null){
+	document.getElementById('styleOfPage').setAttribute('href', styleSheet + ".css");
+}
+}
 
 // This function creates the scripture reference objects
 function Reference(reference, textQuote)
@@ -603,7 +611,7 @@ document.getElementById('outputDiv').innerHTML = scripture.reference + "<br>"
 }
 </script>
 </head>
-<body>
+<body onload= "detectCustomization()">
 <h1>Book of Mormon Scripture Mastery</h1>
 <p>Click this button to see a random Book of Mormon scripture.</p></br>
 <button type="button" onclick="chooseScripture()">Display</button></br></br>
