@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <style>
-      body {background-color: Gainsboro;}
-      h1   {color: Indigo;}
-      li   {color: Indigo;}
-      p    {color: Black;}
-    </style>
+    <link id="styleOfPage" type="text/css" rel="StyleSheet" 
+	href="default_style.css" />
+    <script>
+      function detectCustomization(){
+	var styleSheet = localStorage.getItem('styleKey');
+	if (styleSheet != null){
+	document.getElementById('styleOfPage').setAttribute('href', styleSheet + ".css");
+}
+}
+    </script>
   </head>
-  <body>
+  <body onload="detectCustomization()">
     <h1>Hello World</h1>
     
     <li><a href="Teach_Objective_1.html">Loops, Conditional Statements, Functions, Variables, Parameters, Arrays, Associative Arrays</a></li>
