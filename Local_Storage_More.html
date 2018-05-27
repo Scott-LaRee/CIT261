@@ -1,0 +1,145 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<title>Local Storage</title>
+<link id="styleOfPage" type="text/css" rel="StyleSheet" 
+	href="default_style.css" />
+<script>	
+
+function promptInput(){
+var firstName = promptFirstName();
+var lastName = prompt("Please enter your last name.", );
+var homeTown = promptHomeTown();
+var typeOfPet = promptTypePet();
+var petName = promptPetName();
+var infoArray = {'first':firstName,'last':lastName,'town':homeTown,
+'pet':typeOfPet,'petName':petName};
+return infoArray;
+}
+
+function promptFirstName(){
+var retval = prompt("Please enter your first name.", );
+if (retval == ""){
+retval = "Annonymous";
+}
+return retval;
+}
+
+function promptHomeTown(){
+var retval = prompt("Please enter your home town.", );
+if (retval == ""){
+retval = "your home town";
+}
+return retval;
+}
+
+function promptTypePet(){
+var retval = prompt("What type of pet do you have?", );
+if (retval == ""){
+retval = "pet";
+}
+return retval;
+}
+
+function promptPetName(){
+var retval = prompt("Please enter your pet's name.", );
+if (retval == ""){
+retval = "unknown";
+}
+return retval;
+}
+//function tests to see if localStorage is supported
+function localStorageSupported(type)
+{
+   try 
+   {
+      var storage = window[type],
+	     data = 'Can_I_store_my_data_locally?';
+		 storage.setItem(data, data);
+		 storage.removeItem(data);
+		 return true;
+   }
+   catch(error)
+   {
+     return error instanceof DOMExeption && (
+	 error.code === 22 || 
+	 error.code === 1014 || 
+	 error.name === 'QuotaExceededError' ||
+	 error.name === 'NS_ERROR_DOM_QUOTA_REACHED') && 
+	 storage.length !== 0;
+   }
+  return false;
+}
+
+function displayPet(){
+var infoArray = retrieveStorage();
+var message = "";
+if (infoArray != null){
+message = "Your " + infoArray["pet"] + "'s name is " + infoArray["petName"]
+ + ".";
+ } else {
+ message = "No pet information is currently stored.";
+ }
+document.getElementById('petOutputDiv').innerHTML = message;
+}
+
+function storeInput(array){
+localStorage.setItem("userResponses", JSON.stringify(array));
+
+}
+
+function retrieveStorage(){
+var data = JSON.parse(localStorage.getItem("userResponses"));
+return data;
+}
+
+function customMessage(){
+var dataArray = retrieveStorage();
+var message = "";
+if (dataArray != null){
+message = "Hello " + dataArray.first + " " + dataArray.last + 
+", I hear the weather is nice in " + dataArray.town + " today!";
+} else {
+message = "Hello, I hear the weather is nice today."
+}
+document.getElementById('messageDiv').innerHTML = message;
+}
+
+function detectCustomization(){
+	var styleSheet = localStorage.getItem('styleKey');
+	if (styleSheet != null){
+	document.getElementById('styleOfPage').setAttribute('href', styleSheet + ".css");
+}
+}
+
+function resetLocalStorage(){
+localStorage.removeItem("userResponses");
+}
+
+function doInputOutput(){
+if (localStorageSupported('localStorage')){
+var userArray = promptInput();
+storeInput(userArray);
+}
+else
+alert('Local Storage is not supported');
+}
+</script>
+</head>
+<body onload="detectCustomization()">
+<a href="index.html">Home</a>
+<h1>Local Storage with an associative array</h1>
+<p>This button will prompt you for some information</p>
+ <button type="button" onclick="doInputOutput()">Click</button><br>
+ <p>This button will retrieve your pet information</p>
+  <button type="button" onclick="displayPet()">Click</button><br>
+  <div id="petOutputDiv"></div>
+  <p>This button will display a custom message if there is data in local storage.</p>
+  <button type="button" onclick="customMessage()">Click</button><br>
+    <div id="messageDiv"></div>
+   <p>This button will reset Local Storage Information entered on this page</p>
+  <button type="button" onclick="resetLocalStorage()">Click</button><br>
+
+</body>
+</html>
