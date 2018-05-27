@@ -3,6 +3,8 @@
 <head>
 <meta charset="utf-8">
 <title>Objective 1</title>
+ <link id="styleOfPage" type="text/css" rel="StyleSheet" 
+	href="default_style.css" />
 <script type="text/javascript">
 
 //This function collects the input and sends the values to the appropriate function. It then sends the output when ready.
@@ -94,9 +96,16 @@ document.getElementById('car2OutputDiv').innerHTML = output2;
 document.getElementById('car3OutputDiv').innerHTML = output3;
 document.getElementById('car4OutputDiv').innerHTML = output4;
 }
+ //This function detects and applys page customization
+ function detectCustomization(){
+	var styleSheet = localStorage.getItem('styleKey');
+	if (styleSheet != null){
+	document.getElementById('styleOfPage').setAttribute('href', styleSheet + ".css");
+}
+}
 </script>
 </head>
-<body>
+<body onload="detectCustomization()">
 <h1>Code to demonstrate Objective 1</h1>
 <h2>Loops, Conditional Statements, Functions, Variables, Parameters, Arrays, Associative Arrays</h2>
 
