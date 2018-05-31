@@ -21,8 +21,8 @@ function displayGreeting()
    
    if (name == "Brother Baer")
    {
-   greeting = "Welcome back, Brother Baer! I hope you can see how much"
-   + " I am learning!"
+   greeting = "<p>Welcome back, Brother Baer! I hope you can see how much"
+   + " I am learning!</p>"
    }
    else if (name != null)
    {
@@ -148,8 +148,8 @@ function customizeGreeting(name)
    var name = localStorage.getItem('name');
    if (name != null && name != "")
    {
-   var greeting = "Welcome back, " + name + "! Thank you for your " +
-	 "continued interest in my learning!";
+   var greeting = "<p>Welcome back, " + name + "! Thank you for your " +
+	 "continued interest in my learning!</p>";
    }  
    return greeting;   
 }
