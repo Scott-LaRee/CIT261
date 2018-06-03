@@ -1,3 +1,19 @@
-body {background-color:Lavender;}
-h1   {color: Indigo;}     
-p    {color: Indigo;}
+body {
+  background-image: url("Black-Purple-Wallpaper-16-1920x1080.jpg");
+  background-size: cover;
+ }
+h1 {color: white;}
+h2 {color: white;} 
+h3 {color: white;} 
+h4 {color: white;} 
+h5 {color: white;} 
+h6 {color: white;} 
+ 
+p  {color:white;}
+a {
+  text-decoration: none;
+}
+a.link {color: white;}
+a.visited {color: lightGrey;}
+a.hover {color: yellow;}
+}
