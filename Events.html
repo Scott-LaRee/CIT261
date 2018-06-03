@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<title></title>
+<link id="styleOfPage" type="text/css" rel="StyleSheet" 
+	href="default_style.css" />
+	<style>
+	#touchExample {
+	   color: white;
+	   background: DarkGreen;
+	   width: 100px;
+	   height: 100px;
+	   text-align: center;
+	}
+	
+	#animationDiv {
+	   margin: 25px;
+	   width: 400px;
+	   height: 75px;
+	   background: DarkBlue;
+	   position: relative;
+	   font-size: 30px;
+	   color: white;
+	   text-align: center;
+	   -webkit-animation-name: animate;
+	   -webkit-animation-duration: 7s;
+	   animation-name: animate;
+	   animation-duration: 7s;
+	}
+	
+	@-webkit-keyframes animate{
+	    from {top: 0px;font-size: 30px; background: DarkBlue;}
+		to {top: 300px;font-size:  20px; background: Purple;}
+	}
+	
+	@keyframes animate{
+	   from {top: 0px; font-size: 30px; background: DarkBlue;}
+	   to {top: 200px; font-size: 20px; background: Purple;}
+	}
+	</style>
+<script>	
+function detectCustomization(){
+	var styleSheet = localStorage.getItem('styleKey');
+	if (styleSheet != null){
+	document.getElementById('styleOfPage').setAttribute('href', styleSheet + ".css");
+}
+}
+
+var myDiv = document.getElementById("animationDiv");
+myDiv.addEventListener("webkitAnimationStart", doAnimation);
+myDiv.addEventListener("animationstart", doAnimation);
+
+</script>
+</head>
+<body onload="detectCustomization()">
+<a href="index.html">Home</a>
+  <h1>JavaSript Events</h1>
+
+  <p onclick="this.innerHTML = 'EEEK!!!'">  OnClick</p>
+  <p onmouseover="this.innerHTML = 'Hello'">OnMouseOver</p>
+  <p onmouseout="this.innerHTML = 'Goodbye!'">OnMouseOut</p>
+  <p id = "touchExample" type="button" ontouchstart= "this.innerHTML = 
+  'Huh?'" ontouchmove="this.innerHTML = 'Woah There!'" ontouchend =
+  "this.innerHTML = 'Where did you go?'">Touch</p>
+  <div id="animationDiv"> 
+  This is a different type of CSS animation than I did before</div>
+
+</body>
+</html>
