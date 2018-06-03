@@ -1,7 +1,15 @@
 body {
   background-image: url("Blue-And-Black-Wallpaper-22-2560x1920.jpg");
+  background-size: cover;
  }
-h1 h2 h3 h4 h5 h6 p   {color: white;}     
+h1 {color: white;}
+h2 {color: white;} 
+h3 {color: white;} 
+h4 {color: white;} 
+h5 {color: white;} 
+h6 {color: white;} 
+ 
+p  {color:white;}
 a {
   text-decoration: none;
 }
