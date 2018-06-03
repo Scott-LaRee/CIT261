@@ -1,0 +1,239 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<title>DOM</title>
+<link id="styleOfPage" type="text/css" rel="StyleSheet" 
+	href="default_style.css" />
+<style>
+   #animationContainer {
+       width: 550px;
+       height: 500px;
+       position: relative;
+       background: darkGreen;
+   }
+   #animation {
+       width: 100px;
+       height: 50px;
+       position: absolute;
+       background: white;
+	   font-size: 85%;
+   }
+</style>
+<script>
+
+function chooseGreeting(){
+   //function sets a greeting for the page
+   var greeting = "";
+   if (localStorageSupported('localStorage')){   
+	  var name = localStorage.getItem('name');
+         if (name != null){
+         if (name = 'Brother Baer')
+            greeting = "Welcome back, Brother Baer! I hope you can see how much"
+            + " I am learning!";
+	     if (name = "Annonymous")
+	        greeting = "Welcome back to my page!";
+	     else
+		    greeting = "Welcome back, " + name + "! Thank you for your " +
+	        "continued interest in my learning!";
+	     }
+	     else
+	        greeting = "Welcome to my page!";
+	}
+	else
+	   greeting = "Welcome to my page!";
+	//This is DOM manipulation of the innerHTML of the object with the id of 'greeting'
+	document.getElementById("greeting").innerHTML = greeting; 
+}
+
+//function tests to see if localStorage is supported
+function localStorageSupported(type){
+   try 
+   {
+      var storage = window[type];
+	     data = 'Can_I_store_my_data_locally?';
+		 storage.setItem(data, data);
+		 storage.removeItem(data);
+		 return true;
+   }
+   catch(error)
+   {
+     return error instanceof DOMExeption && (
+	 error.code === 22 || 
+	 error.code === 1014 || 
+	 error.name === 'QuotaExceededError' ||
+	 error.name === 'NS_ERROR_DOM_QUOTA_REACHED') && 
+	 storage.length !== 0;
+   }
+}
+
+function detectCustomization(){
+	var styleSheet = localStorage.getItem('styleKey');
+	if (styleSheet != null){
+	//This is also DOM manipulation, who knew I was using it without knowing what it was?!
+	document.getElementById('styleOfPage').setAttribute('href', styleSheet + ".css");
+    }
+	chooseGreeting();
+}
+
+function doDOMManipulation(){
+   var newObjective = document.createElement("LI");
+   var textnode = document.createTextNode("DOM Manipulation");
+   newObjective.appendChild(textnode);
+   var list = document.getElementById("objectiveList");
+   list.insertBefore(newObjective, list.childNodes[10]);
+}
+
+function removeElement(){
+   
+   var parent = document.getElementById('objectiveList');
+   var child = document.getElementById('classProperties');
+   parent.removeChild(child);
+}
+
+function restoreObjective(){
+   var newObjective = document.createElement("LI");
+   var textnode = document.createTextNode("Manipulating CSS Class Properties");
+   newObjective.appendChild(textnode);
+   var list = document.getElementById("objectiveList");
+   list.insertBefore(newObjective, list.childNodes[12]);
+}
+
+function manipulateClass(){
+   var heading = document.getElementsByClassName("heading");
+   for (index = 0; index < heading.length; index++){
+   heading[index].style.background = "red"
+   }
+  }
+
+function runAnimationLeftToRight(){
+   var animationElement = document.getElementById("animation");
+   var position = 0;
+   var interval = setInterval(animationTimer, 6)
+   function animationTimer(){
+      if(position == 450){
+	     clearInterval(interval);
+	  } else {
+	     position ++;
+		 animationElement.style.left = position + 'px';
+}
+}
+}
+
+function runAnimationRightToLeft(){
+   var animationElement = document.getElementById("animation");
+   var position = 450;
+   var interval = setInterval(animationTimer, 6)
+   function animationTimer(){
+      if(position == 0){
+	     clearInterval(interval);
+	  } else {
+	     position --;
+		 animationElement.style.left = position + 'px';
+}
+}
+}
+
+function runAnimationBottomToTop(){
+   var animationElement = document.getElementById("animation");
+   var position = 450;
+   var interval = setInterval(animationTimer, 6)
+   function animationTimer(){
+      if(position == 0){
+	     clearInterval(interval);
+	  } else {
+	     position --;
+		 animationElement.style.top = position + 'px';
+}
+}
+}
+
+function runAnimationTopToBottom(){
+   var animationElement = document.getElementById("animation");
+   var position = 0;
+   var interval = setInterval(animationTimer, 6)
+   function animationTimer(){
+      if(position == 450){
+	     clearInterval(interval);
+	  } else {
+	     position ++;
+		 animationElement.style.top = position + 'px';
+}
+}
+}
+
+function runAnimationDiagonal(){
+   var animationElement = document.getElementById("animation");
+   var position = 0;
+   var interval = setInterval(animationTimer, 6)
+   function animationTimer(){
+      if(position == 450){
+	     clearInterval(interval);
+	  } else {
+	     position ++;
+		 animationElement.style.left = position + 'px';
+		 animationElement.style.top = position + 'px';
+}
+}
+}
+
+function animateCSS(){
+
+}
+
+</script>
+</head>
+
+<body onload="detectCustomization()">
+<!--onload is an event-->
+<h4 id = "greeting" class = "notice"></h4>
+<a class = "blend" href="index.html">Home</a>
+
+<h1 class="heading">DOM Manipulation</h1>
+<h4 class="heading">Objectives for CIT 261</h4>
+   <ul id="objectiveList">
+      <li>Loops, Conditional Statements, Functions, Variables, Parameters, Arrays</li>
+	  <li>Object Creation Functions</li>
+	  <li>JSON</li>
+	  <li>XMLHTTPRequest</li>
+	  <li>Local Storage</li>
+	  <li id = "classProperties">Manipulating CSS Class Properties</li>
+	  <li>Creating CSS3 Transitions and Animations</li>
+	  <li>Standard JavaScript Events</li>
+	  <li>HTML5 Tags</li>
+	  <li>Designing, Defining, and Triggering CSS3 Transitions</li>
+	  <li>Designing, Defining, and Triggering CSS3 Transforms</li>
+	  <li>Designing, Defining, and Triggering CSS3 Animations</li>
+   <p>There is an objective missing from the list.
+    Click the button below to add it into its proper place.</p>
+   </div>
+   <!--onclick is an event-->
+   <button type="button" onclick="doDOMManipulation()">Create</button><br>
+   <p>This button will use removeChild to remove 'Manipulating CSS Class Properties.</p>
+   <button type="button" onclick="removeElement()">Remove</button><br>
+  <p>This button is in case it bothers you, as much as it does me
+     to have an objective missing from the list. Note that you will not be
+	 able to remove it again unless you refresh the page.</p>
+	 <button type="button" onclick="restoreObjective()">Restore</button><br>
+<h2>DOM Animation</h2>
+   <p>You can create Animations with DOM Manipulation. These animations are different
+   from CSS Animations</p>
+<button type="button" onclick="runAnimationLeftToRight()">Left to Right</button>
+<button type="button" onclick="runAnimationTopToBottom()">Top to Bottom</button>
+<button type="button" onclick="runAnimationRightToLeft()">Right to Left</button>
+<button type="button" onclick="runAnimationBottomToTop()">Bottom to Top</button>
+<button type="button" onclick="runAnimationDiagonal()">Diagonal</button><br>
+
+  <div id ="animationContainer">
+     <div id ="animation">Click Buttons above to Animate</div>
+  </div>
+   
+<h1 class="heading">Manipulate CSS Class Properties Using JavaScript</h1>
+ <p>This button will manipulate CSS Class properties within this page</p>
+  <button type="button" onclick="manipulateClass()">Manipulate</button><br>
+ <p>Note that only the headings assigned to the class are manipulated</p>
+  
+ 
+<div id="outputDiv"></div>
+</body>
+</html>
