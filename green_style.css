@@ -1,3 +1,19 @@
-body {background-color:HoneyDew;}
-h1   {color: DarkGreen;}     
-p    {color: DarkGreen;}
+body {
+  background-image: url("Bamboo-Drops-1920-x-1080.jpg");
+  background-size: cover;
+ }
+h1 {color: DarkGreen;}
+h2 {color: DarkGreen;} 
+h3 {color: DarkGreen;} 
+h4 {color: DarkGreen;} 
+h5 {color: DarkGreen;} 
+h6 {color: DarkGreen;} 
+ 
+p  {color:Black;}
+a {
+  text-decoration: none;
+}
+a.link {color: DarkGreen;}
+a.visited {color: DarkGreen;}
+a.hover {color: yellow;}
+}
