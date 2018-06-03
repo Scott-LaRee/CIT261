@@ -1,3 +1,19 @@
-body {background-color:Yellow;}
-h1   {color: Black;}     
-p    {color: Black;}
+body {
+  background-image: url("Flight-Beam-Smoke-1280-X-1024.jpg");
+  background-size: cover;
+ }
+h1 {color: white;}
+h2 {color: white;} 
+h3 {color: white;} 
+h4 {color: white;} 
+h5 {color: white;} 
+h6 {color: white;} 
+ 
+p  {color:white;}
+a {
+  text-decoration: none;
+}
+a.link {color: white;}
+a.visited {color: lightGrey;}
+a.hover {color: yellow;}
+}
