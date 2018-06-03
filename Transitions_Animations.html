@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+<head>
+<style type="text/css">
+div#myDiv {
+   background: #8ADEFA;
+   width: 500px;
+   height: 300px;
+   border: 20px solid green;
+}
+
+</style>
+<meta charset="utf-8">
+<title></title>
+<link id="styleOfPage" type="text/css" rel="StyleSheet" 
+	href="default_style.css" />
+<script>	
+function detectCustomization(){
+	var styleSheet = localStorage.getItem('styleKey');
+	if (styleSheet != null){
+	document.getElementById('styleOfPage').setAttribute('href', styleSheet + ".css");
+}
+}
+
+function animateColor(divElement, color){
+   var element = document.getElementById(divElement);
+   element.style.transition = "background 2.0s ease-in 0.1s";
+   element.style.background = color;
+}
+
+function animateWidth(divElement, width){
+   var element = document.getElementById(divElement);
+   element.style.transition = "width 2.0s ease-in 0.1s";
+   element.style.width = width;
+}
+
+function animateHeight(divElement, height){
+   var element = document.getElementById(divElement);
+   element.style.transition = "height 2.0s ease-in 0.1s";
+   element.style.height = height;
+}
+
+function animateBorder(divElement, border){
+   var element = document.getElementById(divElement);
+   element.style.transition = "border 2.0s ease-in 0.1s";
+   element.style.border = border;
+}
+
+</script>
+</head>
+<body onload="detectCustomization()">
+<a href="index.html">Home</a>
+<h1>Creating CSS3 Transitions and Animations</h1>
+  <button type="button" onclick="animateColor('myDiv','#A0F')">Background</button>
+  <button type="button" onclick="animateWidth('myDiv','700px')">Width</button>
+  <button type="button" onclick="animateHeight('myDiv','200px')">Height</button>
+  <button type="button" onclick="animateBorder('myDiv','50px solid red')">Border</button><br>
+  
+  <div id="myDiv">
+Click the button to activate my animated transitions!
+  </div>
+
+<div id="outputDiv"></div>
+</body>
+</html>
