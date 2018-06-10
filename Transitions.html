@@ -1,0 +1,98 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+<head>
+<style>
+
+.transition {
+   width: 80px;
+   height: 80px;
+   background-color: darkGreen;
+   padding:15px
+   font-size:12px;
+   left:0px;
+   top:0px;
+   position: relative;
+   transition: all 3s linear 3s;
+}
+
+.transition:hover {
+   font-size: 24px;
+   left: 250px;
+   width: 160px;   
+}
+
+.navigationBar {
+   background-color: black;
+   overflow: hidden;
+   border: none;
+}
+
+.navigationBar a {
+   float: left;
+   color: white;
+   text-align: center;
+   padding: 14px 16px;
+   text-decoration: none;
+   font-size: 12px;
+   transition: all .35s linear .35s;
+}
+
+.navigationBar a:hover{
+   background-color: white;
+   color: black;
+}
+
+.navigationBar a.active {
+   background-color: black;
+   color: yellow;
+}
+</style>
+<meta charset="utf-8">
+<title>Transitions</title>
+<link id="styleOfPage" type="text/css" rel="StyleSheet" 
+	href="default_style.css" />
+<script>	
+function detectCustomization(){
+	var styleSheet = localStorage.getItem('styleKey');
+	if (styleSheet != null){
+	document.getElementById('styleOfPage').setAttribute('href', styleSheet + ".css");
+}
+}
+function dropDownMenu(){
+   document.getElementById("pageList").classList.toggle("show");
+}
+
+window.onclick = function(e){
+   if (!e.target.matches('.drop')){
+      var dropMenu = document.getElementsByClassName("pageList");
+      if(pageList.classList.contains('show')){
+		    pageList.classList.remove('show');
+		 }
+	  
+   }
+}
+</script>
+</head>
+<body onload="detectCustomization()">
+<h1>CSS Transitions</h1>
+<p>Transitions are used to control how quickly CSS properties change</p>
+   <div class="transition">
+      <p onmouseover="this.innerHTML = 'Keep Up!'" onmouseout=
+	  "this.innerHTML = 'Mouse Over'">Mouse Over</p>
+   </div>
+<p>Transitions are useful when used with menus</p>
+<div class="navigationBar">
+   <a class="active" href="index.html">Home</a>
+   <a href="Teach_Objective_1.html">Teach Objective 1</a>
+   <a href="Book_of_Mormon_Scripture_Mastery.html">Objective 2 & 3</a>
+   <a href="Consume_JSON.html">Objective 4</a>
+   <a href="Local_Storage_More.html">Objective 5</a>
+   <a href="DOM_and_CSS_Class.html">Objective 6 & 7</a>
+   <a href="Transitions_Animations.html">Objective 8</a>
+   <a href="Events.html">Objective 9</a>
+   <a href="HTML5_Tags_Audio_Video_Canvas">Objective 10</a>
+   <a href="Local_Storage_API.html">Customize</a>
+</div>
+<p>These are my examples for transitions</p>
+</body>
+</html>

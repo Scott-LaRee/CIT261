@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<title>HTML Tags Audio Video and Canvas</title>
+<link id="styleOfPage" type="text/css" rel="StyleSheet" 
+	href="default_style.css" />
+
+<script>	
+function detectCustomization(){
+	var styleSheet = localStorage.getItem('styleKey');
+	if (styleSheet != null){
+	document.getElementById('styleOfPage').setAttribute('href', styleSheet + ".css");
+}
+}
+
+
+</script>
+</head>
+<body onload="detectCustomization()">
+<h1>Audio Tag</h1>
+<p>The audio tag is used to play an audio file. I had difficulty finding a 
+sound file I felt comfortable using because of copywrite laws so I made one
+myself. I pulled out my violin, which I've played maybe 4 times in the last
+20 years, and played the song "Beautiful Dreamer" by Stephe C Foster Arranged 
+by Hugo Frey. I practiced it for about 20 minutes so I could get a less
+embarrassing recording but I'm no virtuoso.</p><br>
+<audio controls>
+<source src="Beautiful_Dreamer.m4a" type="audio/mp4"/>
+<p>Your browser does not support this sound file format.</p>
+</audio>
+<h1>Video Tag</h1>
+<p>This is the video that I made at the beginning of the semester to introduce
+myself to my group</p>
+<video width="350" height="250" controls>
+<source src="CIT261_Screencast.mp4" type="video/mp4">
+<p>Your browser does tnot support the audio tag.</p>
+</video>
+
+<h1>Canvas Tag</h1>
+<p>Canvas is an HTML5 tag that allows you to use script to create graphics on 
+your page. I have used the cavas tag to draw a yellow star.</p>
+<canvas id="drawStar" width="300" height="300">
+Your browswer does not support the HTML5 canvas tag.</canvas>
+
+<script>
+var canvas = document.getElementById("drawStar");
+var context = canvas.getContext("2d");
+context.lineWidth=5;
+context.strokeStyle="#FFFF00";
+context.moveTo(50,295);
+context.lineTo(150,5);
+context.lineTo(250,295);
+context.lineTo(5,100);
+context.lineTo(295,100);
+context.lineTo(50,295);
+context.stroke();
+</script>
+ 
+ <a href="Local_Storage_API.html">Customize Page</a>
+</body>
+</html>

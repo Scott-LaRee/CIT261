@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<title>Transforms</title>
+<link id="styleOfPage" type="text/css" rel="StyleSheet" 
+	href="default_style.css" />
+<style>
+   div.rotate {
+      width: 100px;
+	  height: 100px;
+	  background-color: green;
+	  -ms-transform: rotate(45deg);
+	  -webkit-transform: rotate (45deg);
+	  transform: rotate(45deg);
+   }
+   
+   div.skew {
+      width: 100px;
+	  height: 100px;
+	  background-color: magenta;
+	  -ms-transform: skewY(35deg);
+	  -webkit-transform: skewY(35deg);
+	  transform: skewY(35deg);
+   }
+   
+   div.scale {
+      width: 100px;
+	  height: 100px;
+	  background-color: orange;
+	  -ms-transform: scaleY(2.0);
+	  -webkit-transform: scaleY(2.0);
+	  transform: scalkY(2.0);
+   }
+</style>
+<script>	
+function detectCustomization(){
+	var styleSheet = localStorage.getItem('styleKey');
+	if (styleSheet != null){
+	document.getElementById('styleOfPage').setAttribute('href', styleSheet + ".css");
+}
+}
+</script>
+</head>
+<body onload="detectCustomization()">
+<h1>Transforms</h1>
+<p>Transforms allow you to alter elements</p>
+<h2>Rotate</h2>
+<div class="rotate">This is rotate
+</div><br>
+<h2>Skew</h2><br>
+<div class="skew">This is skew
+</div><br><br><br>
+<h2>Scale</h2><br><br>
+<div class="scale">This is scale
+</div><br><br><br>
+   
+ <a href="Local_Storage_API.html">Customize Page</a>
+</body>
+</html>

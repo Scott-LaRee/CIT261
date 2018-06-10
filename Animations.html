@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<title>Animations</title>
+<link id="styleOfPage" type="text/css" rel="StyleSheet" 
+	href="default_style.css" />
+<style>
+   #container{
+      height: 300px;
+   }
+	#animationDiv {
+	   margin: 25px;
+	   width: 400px;
+	   height: 75px;
+	   background: DarkBlue;
+	   position: relative;
+	   font-size: 30px;
+	   color: white;
+	   text-align: center;
+	   -webkit-animation-name: animate;
+	   -webkit-animation-duration: 7s;
+	   animation-name: animate;
+	   animation-duration: 7s;
+	}
+	
+	@-webkit-keyframes animate{
+	    from {top: 0px;font-size: 30px; background: DarkBlue;}
+		to {top: 300px;font-size:  20px; background: Purple;}
+	}
+	
+	@keyframes animate{
+	   from {top: 0px; font-size: 30px; background: DarkBlue;}
+	   to {top: 200px; font-size: 20px; background: Purple;}
+	}
+	
+	#sprite {
+	   width:200px;
+	   height:200px;
+	   background: url(Basic_Sprite_Sheet.jpg) left center;
+       animation: spriteWalk 1.25s steps(10) infinite;
+	}
+	
+	@keyframes spriteWalk{
+	   100% {background-position:-2000px;}
+	}
+
+</style>
+<script>	
+function detectCustomization(){
+	var styleSheet = localStorage.getItem('styleKey');
+	if (styleSheet != null){
+	document.getElementById('styleOfPage').setAttribute('href', styleSheet + ".css");
+}
+}
+</script>
+</head>
+<body onload="detectCustomization()">
+<h1>Animations</h1>
+<p>There are different types of animations</p>
+<div id="container">
+<div id="animationDiv"> 
+  Basic Animation</div></div>
+   
+<h2>Sprite Animation</h2>
+<p>Sprite Animations are very interesting and versatile. I drew the images
+for this sprite myself using paint.</p>
+<div id="holdSprite">
+<div id="sprite"></div></div>
+
+ <a href="Local_Storage_API.html">Customize Page</a>
+</body>
+</html>
