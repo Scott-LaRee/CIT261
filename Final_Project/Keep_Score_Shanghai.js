@@ -52,7 +52,7 @@ function localStorageSupported(type)
    }
    catch(error)
    {
-     return error instanceof DOMExeption && (
+     return error instanceof DOMException && (
 	 error.code === 22 || 
 	 error.code === 1014 || 
 	 error.name === 'QuotaExceededError' ||
