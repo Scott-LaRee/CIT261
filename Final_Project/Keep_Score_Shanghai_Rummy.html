@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+<head>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <title>Shanghai Rummy</title>
+   <link type="text/css" rel="StyleSheet" href="ShanghaiRummy.css">
+<script type="text/javascript" src="Keep_Score_Shanghai.js" charset="UTF-8">
+</script>
+</head>
+<body onload="detectPlayers()">
+   <header>
+      <h1>Shanghai Rummy</h1>
+	  <input type ="text" id="playerName">
+      <button type="button" onclick="createPlayer()">Add Player</button><br>
+   </header>
+	  
+   <div class="hands">
+   <p>2 Sets</p>
+   <p>1 Set 1 Run</p>
+   <p>2 Runs</p>
+   <p>2 Sets 1 Run</p>
+   <p>1 Set 2 Runs</p>
+   <p>3 Sets</p>
+   <p>3 Runs</p>
+   <div>
+   <div class="players" id="playerDiv"></div>
+   
+   <div id="outputDiv"></div>
+
+</body>
+</html>

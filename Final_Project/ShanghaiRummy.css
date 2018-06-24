@@ -1,0 +1,28 @@
+header {
+	display: block;
+	max-width: 100%;
+	min-width: 300px;
+	padding: 1rem;
+	margin: auto;
+	align-content: center;
+	align-self: center;
+	background-color: rgba(0, 111, 11, 1);
+	color: white;
+	
+}
+.hands {
+	display: block;
+	max-width: 300px;
+	min-width: 100px;
+	padding: .5rem;
+	background-color: rgba(152, 251, 152, 1);
+	color: rgba(0,75,0,1);
+}
+.players{
+	display: block;
+	max-width: 100%;
+	min-width:100px;
+	padding: .5rem;
+	background-color: rgba(152,251,152,1);
+	color: rgba(0,75,0,1);
+}
