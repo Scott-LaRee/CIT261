@@ -10,19 +10,44 @@ header {
 	color: white;
 	
 }
+
 .hands {
-	display: block;
+	display: inline;
 	max-width: 300px;
-	min-width: 100px;
+	min-width: 80px;
 	padding: .5rem;
 	background-color: rgba(152, 251, 152, 1);
 	color: rgba(0,75,0,1);
+	font-weight: bold;
 }
+
 .players{
-	display: block;
+	display: inline;
 	max-width: 100%;
-	min-width:100px;
+	min-width:80px;
 	padding: .5rem;
-	background-color: rgba(152,251,152,1);
+	
 	color: rgba(0,75,0,1);
+}
+
+#playerDiv {
+	display: block;
+	padding: 5px;
+	margin: 2px;
+}
+
+fieldset { 
+      display: inline;
+      width: 80px;
+      margin-left: 2px;
+      margin-right: 2px;
+      padding-top: 0.35em;
+      padding-bottom: 0.625em;
+      padding-left: 0.75em;
+      padding-right: 0.75em;
+      border: 2px groove (internal value);
+	  background-color: rgba(152,251,152,1);
+	  color: rgba(0,75,0,1);
+	  font-weight: bold;
+	  
 }
