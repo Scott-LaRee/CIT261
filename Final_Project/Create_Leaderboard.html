@@ -7,28 +7,21 @@
 </head>
 <body ">
 <button type="button" onclick="storeLeaderboard()">Create Leaderboard</button><br> 
-   <script src="https://www.gstatic.com/firebasejs/5.2.0/firebase.js"></script>
-   <script>
-  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyBI8mJTPuIooS2gjq7D21GmJmAk7-xx4wA",
-    authDomain: "shanghai-rummy-11.firebaseapp.com",
-    databaseURL: "https://shanghai-rummy-11.firebaseio.com",
-    projectId: "shanghai-rummy-11",
-    storageBucket: "shanghai-rummy-11.appspot.com",
-    messagingSenderId: "253920965155"
-  };
-  firebase.initializeApp(config);
-</script>
-<script src="https://www.gstatic.com/firebasejs/5.1.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/5.1.0/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/5.1.0/firebase-database.js"></script>
-<script src="https://www.gstatic.com/firebasejs/5.1.0/firebase-firestore.js"></script>
-<script src="https://www.gstatic.com/firebasejs/5.1.0/firebase-messaging.js"></script>
-<script src="https://www.gstatic.com/firebasejs/5.1.0/firebase-functions.js"></script>
+<button type="button" onclick="getLeaderBoard()">Retrieve Leaderboard</button><br> 
+<div id="leaderboard"></div>
 <script>
 function createLeaderboard(){
-	var leaderboard = {"Leaderboard" : {
+	var leaderboard = ['Anonymous',1000,
+					'Anonymous',1000,
+					'Anonymous',1000,
+					'Anonymous',1000,
+					'Anonymous',1000,
+					'Anonymous',1000,
+					'Anonymous',1000,
+					'Anonymous',1000,
+					'Anonymous',1000,
+					'Anonymous',1000]
+	/*{"Leaderboard" : {
 	1: {"name": "Anonymous","score": 1000},
 	2: {"name": "Anonymous","score": 1000},
 	3: {"name": "Anonymous","score": 1000},
@@ -38,16 +31,57 @@ function createLeaderboard(){
 	7: {"name": "Anonymous","score": 1000},
 	8: {"name": "Anonymous","score": 1000},
 	9: {"name": "Anonymous","score": 1000},
-	10: {"name": "Anonymous","score": 1000}}}
-	return leaderboard;
+	10: {"name": "Anonymous","score": 1000}}}*/
+	return JSON.stringify(leaderboard);
 }
 function storeLeaderboard(){
-	var database = firebase.database();
 	var data = createLeaderboard();
-	var firebaseRef = firebase.database().ref();
-	firebaseRefe.child("Leaderboard").set("data");
-	
+	postRequest(data)
 }
+function getLeaderBoard(){
+	var ajaxRequest = new XMLHttpRequest();
+	//var data = "";
+	
+	ajaxRequest.open("GET", "https://shanghai-rummy-11.firebaseio.com/leaderboard.json", true);
+	
+	ajaxRequest.onreadystatechange = function (){
+		if (ajaxRequest.readyState === 4) {
+			var status = ajaxRequest.status;
+			if ((status >= 200 && status < 300) || status === 304){
+				var data = ajaxRequest.responseText;
+				leaderboard = JSON.parse(data);
+				//displayLeaderBoard(data);
+				document.getElementById("leaderboard").innerHTML = data;
+				} else {
+					alert ("Something went wrong with getRequest");
+				}
+			
+		}
+	}
+	//displayLeaderBoard(data);
+	ajaxRequest.send(null);
+}
+
+function postRequest(data){
+
+	var ajaxRequest = new XMLHttpRequest();
+	ajaxRequest.open("POST", "https://shanghai-rummy-11.firebaseio.com/leaderboard.json", true);
+	ajaxRequest.setRequestHeader("Content-type", "application/json;charset=UTF-8");
+	
+	ajaxRequest.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			getLeaderBoard();
+		}
+	};
+	
+	ajaxRequest.send(JSON.stringify({leaderboard:data}));
+}
+
+function displayLeaderBoard(data){
+	var leaderboard = data.leaderboard;
+	document.getElementById("leaderboard").value = data;
+}
+
 </script>
 </body>
 </html>

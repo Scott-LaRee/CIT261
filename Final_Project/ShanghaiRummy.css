@@ -11,10 +11,9 @@ header {
 	
 }
 
-.hands {
+#hands {
 	display: inline;
-	max-width: 300px;
-	min-width: 80px;
+	width: 80px;
 	padding: .5rem;
 	background-color: rgba(152, 251, 152, 1);
 	color: rgba(0,75,0,1);
