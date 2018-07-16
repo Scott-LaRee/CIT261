@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+<head>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <title>Shanghai Rummy</title>
+   <link type="text/css" rel="StyleSheet" href="ShanghaiRummy.css">
+   <script type="text/javascript" src="Keep_Score_Shanghai.js" charset="UTF-8"></script>
+
+</head>
+<body onload="detectPlayers()">
+    <header>
+		<h1>Shanghai Rummy</h1>
+		<input type ="text" id="playerName">
+		<button type="button" onclick="createPlayer()">Add Player</button>
+		<button type="button" onclick="deletePlayer()">Remove Player</button><br>
+		<button type="button" onclick="displayWinner()">Declare Winner</button>
+		<button type="button" onclick="saveGame()">Save Game</button>
+		<button type="button" onclick="restoreGame()">Restore Game</button><br>
+    </header>
+	<div id="winnerDiv"></div>
+	<div id="hands">
+	<p>2 Sets <br>
+	   1 Set 1 Run <br>
+	   2 Runs <br>
+	   2 Sets 1 Run <br>
+	   1 Set 2 Runs <br>
+	   3 Sets <br>
+	   3 Runs</p> <br>
+	</div>
+    <div class="players" id="playerDiv"></div>
+   
+   <div id="outputDiv"></div>
+   <button type="button" onclick="storeLeaderboard()">Create Leaderboard</button><br> 
+<button type="button" onclick="getLeaderBoard()">Retrieve Leaderboard</button><br> 
+<button type="button" onclick="simulateGoodDataFormat()">Update Leaderboard</button><br>
+<div id="leaderboard"></div>
+<button type="button" onclick="displayWinner()">Declare Winner</button>   
+</body>
+</html>

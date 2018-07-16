@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+<head>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   
+</head>
+<body ">
+<button type="button" onclick="storeLeaderboard()">Create Leaderboard</button><br> 
+<button type="button" onclick="getLeaderBoard()">Retrieve Leaderboard</button><br> 
+<div id="leaderboardDiv"></div>
+<script>
+function createLeaderboard(){
+	var leaderboard = ['Anonymous',1000,
+					'Anonymous',1000,
+					'Anonymous',1000,
+					'Anonymous',1000,
+					'Anonymous',1000,
+					'Anonymous',1000,
+					'Anonymous',1000,
+					'Anonymous',1000,
+					'Anonymous',1000,
+					'Anonymous',1000]
+	
+	return JSON.stringify(leaderboard);
+}
+function storeLeaderboard(){
+	var data = createLeaderboard();
+	postRequest(data)
+}
+function getLeaderBoard(){
+	var ajaxRequest = new XMLHttpRequest();
+	var referenceKey = "-LHW8NKUtdR_rkCIkgKo";
+	
+	ajaxRequest.open("GET", "https://shanghai-rummy-11.firebaseio.com/leaderboard.json", true);
+	
+	ajaxRequest.onreadystatechange = function (){
+		if (ajaxRequest.readyState === 4) {
+			var status = ajaxRequest.status;
+			if ((status >= 200 && status < 300) || status === 304){
+				var data = ajaxRequest.responseText;
+				var object = JSON.parse(data);
+				var leaders = object[referenceKey].leaderboard;
+				
+				displayLeaderBoard(leaders);
+				//document.getElementById("leaderboardDiv").innerHTML = data;
+				} else {
+					alert ("Something went wrong with getRequest");
+				}
+			
+		}
+	}
+	ajaxRequest.send(null);
+}
+function postRequest(data){
+	var ajaxRequest = new XMLHttpRequest();
+	ajaxRequest.open("POST", "https://shanghai-rummy-11.firebaseio.com/leaderboard.json", true);
+	ajaxRequest.setRequestHeader("Content-type", "application/json;charset=UTF-8");
+	
+	ajaxRequest.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			getLeaderBoard();
+		}
+	};
+	
+	ajaxRequest.send(JSON.stringify({leaderboard:data}));
+}
+function displayLeaderBoard(data){
+	var leaders = JSON.parse(data);
+	
+	
+	//var boardData = object[leaders];									    
+	document.getElementById("leaderboardDiv").value = leaders;
+}
+</script>
+</body>
+</html>
