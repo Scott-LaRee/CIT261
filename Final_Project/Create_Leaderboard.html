@@ -8,7 +8,7 @@
 <body ">
 <button type="button" onclick="storeLeaderboard()">Create Leaderboard</button><br> 
 <button type="button" onclick="getLeaderBoard()">Retrieve Leaderboard</button><br> 
-<div id="leaderboard"></div>
+<div id="leaderboardDiv"></div>
 <script>
 function createLeaderboard(){
 	var leaderboard = ['Anonymous',1000,
@@ -51,7 +51,7 @@ function getLeaderBoard(){
 				var data = ajaxRequest.responseText;
 				leaderboard = JSON.parse(data);
 				//displayLeaderBoard(data);
-				document.getElementById("leaderboard").innerHTML = data;
+				document.getElementById("leaderboardDiv").innerHTML = data;
 				} else {
 					alert ("Something went wrong with getRequest");
 				}
@@ -78,8 +78,10 @@ function postRequest(data){
 }
 
 function displayLeaderBoard(data){
-	var leaderboard = data.leaderboard;
-	document.getElementById("leaderboard").value = data;
+	var id = '-LHW8NKUtdR_rkCIkgKo';
+	var object = 'leaderboard';									     
+	var boardData = data.id.object;									    
+	document.getElementById("leaderboardDiv").value = boardData;
 }
 
 </script>
