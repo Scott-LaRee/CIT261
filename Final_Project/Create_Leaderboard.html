@@ -40,7 +40,8 @@ function storeLeaderboard(){
 }
 function getLeaderBoard(){
 	var ajaxRequest = new XMLHttpRequest();
-	//var data = "";
+	var data = "";
+        var leaderboard;
 	
 	ajaxRequest.open("GET", "https://shanghai-rummy-11.firebaseio.com/leaderboard.json", true);
 	
