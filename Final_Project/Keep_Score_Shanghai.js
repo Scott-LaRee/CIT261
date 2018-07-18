@@ -139,7 +139,7 @@ function whoIsWinning(playersArray){
 	   var player = playersArray[index];
    totalPointsReceived += player.totalScore;
    }
-   var winnerScore = 1000000;
+   var winnerScore = 1000000; //for use in validating winner score
    var winnerName = "";
    var winnerInfo = [winnerName,winnerScore];
    for (var index = 0; index < playersArray.length - 1; index++){
@@ -169,7 +169,7 @@ function displayWinner(){
 	var playersList = getPlayerList();
 	var playersArray = createPlayersArray(playersList);
     winner = whoIsWinning(playersArray);
-	if (winner[1] != 1000000){
+	if (winner[1] != 1000000){ //if winner score is 1000000 winner is generic
     output = "The winner is " + winner[0] +
     " with a score of " + winner[1] + ".";
 	} else {
@@ -177,6 +177,14 @@ function displayWinner(){
 	}
    
     document.getElementById("winnerDiv").innerHTML = output;
+	var totalPointsHand7 = 0;
+    for (var index = 0; index < playersList.length; index++){
+	var score = parseInt(document.getElementById(playersList[index] + 'Hand7').value);
+		totalPointsHand7 += score;
+   }
+	if (totalPointsHand7 > 0){
+		getLeaderBoard(winner);
+	}
 }
 
 function createPlayersArray(list){
@@ -280,3 +288,169 @@ function restoreGame(){
 	}
 }
 
+function createLeaderboard(){
+	var leaderboard = ['Anonymous',1000,
+					'Anonymous',1000,
+					'Anonymous',1000,
+					'Anonymous',1000,
+					'Anonymous',1000,
+					'Anonymous',1000,
+					'Anonymous',1000,
+					'Anonymous',1000,
+					'Anonymous',1000,
+					'Anonymous',1000]
+	
+	return JSON.stringify(leaderboard);
+}
+function storeLeaderboard(){
+	var data = createLeaderboard();
+	postRequest(data);
+}
+
+function getLeaderBoard(winner){
+	
+	var ajaxRequest = new XMLHttpRequest();
+	var referenceKey = "-LHW8NKUtdR_rkCIkgKo";
+	
+	ajaxRequest.open("GET", "https://shanghai-rummy-11.firebaseio.com/leaderboard.json", true);
+	
+	ajaxRequest.onreadystatechange = function (){
+		if (ajaxRequest.readyState === 4) {
+			var status = ajaxRequest.status;
+			if ((status >= 200 && status < 300) || status === 304){
+				var data = ajaxRequest.responseText;
+				var object = JSON.parse(data);
+				var leaders = object[referenceKey].leaderboard;
+				if (winner != null){
+					updateLeaderboard(leaders,winner);
+				}
+				displayLeaderBoard(leaders);
+				
+				//document.getElementById("leaderboard").innerHTML = data;
+				} else {
+					alert ("Something went wrong with getRequest");
+				}
+		}
+	}
+	ajaxRequest.send(null);
+}
+
+function patchLeaderBoard(data){
+	var ajaxRequest = new XMLHttpRequest();
+	var referenceKey = "-LHW8NKUtdR_rkCIkgKo";
+	var targetUrl = "https://shanghai-rummy-11.firebaseio.com/leaderboard/" + 
+	referenceKey + ".json"
+	ajaxRequest.open("PATCH","https://shanghai-rummy-11.firebaseio.com/leaderboard.json", true);
+	ajaxRequest.onreadystatechange = function(){
+		if (this.readyState == 4 && this.status == 200){
+			ajaxRequest.send(JSON.stringify(data));
+		}
+	};
+}
+
+function postRequest(data){
+
+	var ajaxRequest = new XMLHttpRequest();
+	ajaxRequest.open("POST", "https://shanghai-rummy-11.firebaseio.com/leaderboard.json", true);
+	ajaxRequest.setRequestHeader("Content-type", "application/json;charset=UTF-8");
+	
+	ajaxRequest.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			getLeaderBoard();
+		}
+	};
+	
+	ajaxRequest.send(JSON.stringify({leaderboard:data}));
+}
+
+function displayLeaderBoard(data){
+	var leaders = JSON.parse(data);
+	var output = '';
+    for (var index = 0; index < leaders.length; index += 2){
+		var num = (index / 2) + 1;
+		output += num + " " + leaders[index] + " " + leaders[index + 1] + '<br>';
+		document.getElementById("leaderboard").innerHTML = output;
+    }
+	//document.getElementById("leaderboard").innerHTML = data;
+}
+	
+function simulateGoodDataFormat(){
+	var leaderboard = ['Joe',900,
+					'Alice',900,
+					'Sam',950,
+					'Anonymous',1000,
+					'Anonymous',1000,
+					'Anonymous',1000,
+					'Anonymous',1000,
+					'Anonymous',1000,
+					'Anonymous',1000,
+					'Anonymous',1000];
+	var playerInfo = ['Andy',100];
+	updateLeaderboard(leaderboard,playerInfo);
+}
+
+function updateLeaderboard(data, playerInfo){
+	var leaderboard = JSON.parse(data);
+	var temp1 = playerInfo;
+	var temp2;
+	for (var index = 0; index < leaderboard.length / 2; index += 2){
+		temp2 = [leaderboard[index],leaderboard[index + 1]];
+		for (var objectIndex = 0; objectIndex < 2; objectIndex++)
+		{
+		var score1 = temp1[1];
+		var score2 = temp2[1];
+			if (score1 < score2){
+				leaderboard[index] = temp1[0];
+				leaderboard[index + 1] = temp1[1];
+				temp1[0] = temp2[0];
+				temp1[1] = temp2[1];
+			}
+		}
+	}
+		
+	patchLeaderBoard(leaderboard);
+	/*
+   var output = '';
+    for (var index = 0; index < leaderboard.length; index += 2){
+		var num = (index / 2) + 1;
+		output += num + " " + leaderboard[index] + " " + leaderboard[index + 1] + '<br>';
+		document.getElementById("leaderboard").innerHTML = output;
+    }*/
+}
+
+function colorShift(){
+	var timer = setInterval(colorReturn,4000);
+	var colorShift = document.getElementsByClassName("colorShift");
+	
+	for (var index = 0; index < colorShift.length; index++){
+		colorShift[index].style.background = "darkBlue";
+	}		
+}
+
+function colorReturn(){
+	var colorShift = document.getElementsByClassName("colorShift");
+	for (var index = 0; index < colorShift.length; index++){
+		colorShift[index].style.background = "rgba(0, 111, 11, 1)";
+	}
+}
+
+function animateColor(){
+	var timer = setInterval (returnAnimation,4000);
+	var element = document.getElementById("playerDiv");
+	element.style.transition = "background 2.0s ease-in 0.1s";
+	element.style.background = "lightBlue";
+}
+
+function returnAnimation(){
+	var element = document.getElementById("playerDiv");
+	element.style.transition = "background 2.0s ease-in 0.1s";
+	element.style.background = "white";
+}
+
+function playJingle(){
+	var jingle = new Audio("jingle_bell.m4a");
+	
+	//I had more here but I ended up changing it around so much it was useless 
+	
+	jingle.addEventListener("hover",audio.play());
+}

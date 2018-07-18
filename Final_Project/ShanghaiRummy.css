@@ -1,7 +1,8 @@
 header {
-	display: block;
-	max-width: 100%;
-	min-width: 300px;
+	display: inline-block;
+	width: 100%;
+	
+	max-height: 150px;
 	padding: 1rem;
 	margin: auto;
 	align-content: center;
@@ -11,13 +12,78 @@ header {
 	
 }
 
-#hands {
+#jesterLeft{
 	display: inline;
-	width: 80px;
+	height: 170px;
+	-ms-transform: rotate(-45deg);
+	-webkit-transform: rotate (-45deg);
+	transform: rotate(-45deg);
+	padding: 1px;
+	margin: 5px;
+}
+
+#jesterRight{
+	display: inline;
+	height: 170px;
+	-ms-transform: rotate(45deg);
+	-webkit-transform: rotate (45deg);
+	transform: rotate(45deg);
+	padding: 1px;
+	margin: 5px;
+}
+
+#enjoy{
+	color: white;
+	background-color: rgba(0, 111, 11, 1);
+	width: 200px;
+	height: 50px;
+	text-align: center;
+	font-weight: bold;
+	align-content: center;
+	align-self: center;
+	margin: auto;
+	padding: 1px 0;
+	-webkit-animation-name: enjoy;
+	-webkit-animation-duration: 5s;
+	animation-name: enjoy;
+	animation-duration: 5s;
+}
+
+@-webkit-keyframes enjoy{
+	from {width: 200px;}
+	to {width: 230px;}
+}
+
+@keyframes enjoy{
+	from {width: 200px;}
+	to {width: 230px;}
+}
+
+#hands {
+	display: inline-block;
+	min-width: 80px;
+	max-width: 25%;
+	margin-left: 2px;
+    margin-right: 2px;
+    padding-top: 0.35em;
+    padding-bottom: 0.625em;
+    padding-left: 0.75em;
+    padding-right: 0.75em;
+    border: 2px groove (internal value);
+	height: 150px;
 	padding: .5rem;
 	background-color: rgba(152, 251, 152, 1);
 	color: rgba(0,75,0,1);
 	font-weight: bold;
+	
+}
+
+img{
+	display: block;
+	border: 1px;
+	border-color: rgba(0, 111, 11, 1);
+	max-width:20%;
+	
 }
 
 .players{
@@ -48,5 +114,5 @@ fieldset {
 	  background-color: rgba(152,251,152,1);
 	  color: rgba(0,75,0,1);
 	  font-weight: bold;
-	  
+	  position: relative;
 }
