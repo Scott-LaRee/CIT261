@@ -9,9 +9,14 @@
 
 </head>
 <body onload="detectPlayers()">
+	
     <header class="colorShift">
-		<div class="jester"><img src="Jester_by_Ambria.png" id="jesterLeft" alt="Mischievous Jester" style="float:left;"></div>
-		<div class="jester"><img src="Jester_by_Ambria.png" id="jesterRight" alt="Mischievous Jester" style="float:right;"></div>
+	<div id="head">
+		<div class="jesterLeft" onclick="playJingle()">
+		<img src="Jester_by_Ambria.png" id="jesterLeft" alt="Mischievous Jester" style="float:left;"></div>
+		
+		<!--<div class="jesterRight"><img src="Jester_by_Ambria.png" id="jesterRight" alt="Mischievous Jester" style="float:right;"></div>-->
+		
 		<p><h1>Shanghai Rummy</h1>
 		<audio id="bell" src="jingle_bell.m4a" type="audio/mp4"/>
 		Your browser does not support the audio tag</audio>
@@ -22,7 +27,9 @@
 		<button type="button" onclick="saveGame()">Save Game</button>
 		<button type="button" onclick="restoreGame()">Restore Game</button><br>
 		</p>
+		</div>
 	</header>
+	
 	<div id="winnerDiv"></div>
 	<div id="hands" onclick="shiftDiv()">
 	<p >
@@ -41,7 +48,7 @@
    <button type="button" onclick="getLeaderBoard()">Retrieve Leaderboard</button><br> 
    <button type="button" onclick="simulateGoodDataFormat()">Update Leaderboard</button><br>
    <div id="leaderboard"></div>
-   <button type="button">Declare Winner</button> 
+   <button type="button" onclick="storeLeaderboard()">Create Leaderboard</button> 
    <div id="enjoy" class="colorShift">
    <p ontouchstart="this.innerHTML = 'Have Fun!'" ontouchend="this.innerHTML = 'Enjoy Your Game!'">Enjoy Your Game!</p></div>   
 	<button type="button" onclick="colorShift(),animateColor()">Color Shift</button><br>

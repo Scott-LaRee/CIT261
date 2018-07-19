@@ -4,12 +4,18 @@ header {
 	
 	max-height: 150px;
 	padding: 1rem;
-	margin: auto;
+	
 	align-content: center;
 	align-self: center;
 	background-color: rgba(0, 111, 11, 1);
 	color: white;
 	
+}
+
+#head {
+	margin: auto;
+	align-content: center;
+	align-self: center;
 }
 
 #jesterLeft{
@@ -18,16 +24,6 @@ header {
 	-ms-transform: rotate(-45deg);
 	-webkit-transform: rotate (-45deg);
 	transform: rotate(-45deg);
-	padding: 1px;
-	margin: 5px;
-}
-
-#jesterRight{
-	display: inline;
-	height: 170px;
-	-ms-transform: rotate(45deg);
-	-webkit-transform: rotate (45deg);
-	transform: rotate(45deg);
 	padding: 1px;
 	margin: 5px;
 }

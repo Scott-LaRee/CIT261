@@ -320,7 +320,8 @@ function getLeaderBoard(winner){
 			if ((status >= 200 && status < 300) || status === 304){
 				var data = ajaxRequest.responseText;
 				var object = JSON.parse(data);
-				var leaders = object[referenceKey].leaderboard;
+				var leaders = object.leaderboard;
+				//var leaders = object[referenceKey].leaderboard;
 				if (winner != null){
 					updateLeaderboard(leaders,winner);
 				}
@@ -351,7 +352,7 @@ function patchLeaderBoard(data){
 function postRequest(data){
 
 	var ajaxRequest = new XMLHttpRequest();
-	ajaxRequest.open("POST", "https://shanghai-rummy-11.firebaseio.com/leaderboard.json", true);
+	ajaxRequest.open("PUT", "https://shanghai-rummy-11.firebaseio.com/leaderboard.json", true);
 	ajaxRequest.setRequestHeader("Content-type", "application/json;charset=UTF-8");
 	
 	ajaxRequest.onreadystatechange = function() {
@@ -364,14 +365,15 @@ function postRequest(data){
 }
 
 function displayLeaderBoard(data){
-	var leaders = JSON.parse(data);
+	var leaders = data;
+	
 	var output = '';
     for (var index = 0; index < leaders.length; index += 2){
 		var num = (index / 2) + 1;
 		output += num + " " + leaders[index] + " " + leaders[index + 1] + '<br>';
 		document.getElementById("leaderboard").innerHTML = output;
     }
-	//document.getElementById("leaderboard").innerHTML = data;
+	
 }
 	
 function simulateGoodDataFormat(){
@@ -390,7 +392,8 @@ function simulateGoodDataFormat(){
 }
 
 function updateLeaderboard(data, playerInfo){
-	var leaderboard = JSON.parse(data);
+	var leaderboard = data;
+	
 	var temp1 = playerInfo;
 	var temp2;
 	for (var index = 0; index < leaderboard.length / 2; index += 2){
@@ -406,16 +409,9 @@ function updateLeaderboard(data, playerInfo){
 				temp1[1] = temp2[1];
 			}
 		}
-	}
-		
-	patchLeaderBoard(leaderboard);
-	/*
-   var output = '';
-    for (var index = 0; index < leaderboard.length; index += 2){
-		var num = (index / 2) + 1;
-		output += num + " " + leaderboard[index] + " " + leaderboard[index + 1] + '<br>';
-		document.getElementById("leaderboard").innerHTML = output;
-    }*/
+	}	
+	//PUT	
+	postRequest(leaderboard);
 }
 
 function colorShift(){
@@ -448,9 +444,6 @@ function returnAnimation(){
 }
 
 function playJingle(){
-	var jingle = new Audio("jingle_bell.m4a");
-	
-	//I had more here but I ended up changing it around so much it was useless 
-	
-	jingle.addEventListener("hover",audio.play());
+	var audio = document.getElementById("bell");
+	audio.play();
 }
