@@ -36,9 +36,11 @@ function createPlayerField(name){
 		var newTextBox = document.createElement("input");
 		newTextBox.setAttribute('type', 'text');
 		newTextBox.setAttribute('id', inputBoxArray[index]);
-		newTextBox.setAttribute('size', '3');
+		newTextBox.setAttribute('size', '1');
 		newFieldSet.appendChild(newTextBox);
-	}			
+		newTextBox.onchange = function(){getScore(inputBoxArray)};
+	}
+/*	
 	var newSubmit = document.createElement("input");
 	newSubmit.setAttribute('type','submit');
 	newSubmit.setAttribute('value',"Submit");
@@ -47,7 +49,7 @@ function createPlayerField(name){
 	newFieldSet.appendChild(newSubmit); 
 	function getScoreForName(){
 		getScore(inputBoxArray);
-	}
+	}*/
 }
 
 function getPlayerList(){
@@ -432,15 +434,15 @@ function colorReturn(){
 
 function animateColor(){
 	var timer = setInterval (returnAnimation,4000);
-	var element = document.getElementById("playerDiv");
+	var element = document.getElementById("body");
 	element.style.transition = "background 2.0s ease-in 0.1s";
 	element.style.background = "lightBlue";
 }
 
 function returnAnimation(){
-	var element = document.getElementById("playerDiv");
+	var element = document.getElementById("body");
 	element.style.transition = "background 2.0s ease-in 0.1s";
-	element.style.background = "white";
+	element.style.background = "rgba(152,251,152,1)";
 }
 
 function playJingle(){
