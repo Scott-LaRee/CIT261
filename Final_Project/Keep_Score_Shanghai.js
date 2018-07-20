@@ -24,32 +24,25 @@ function createPlayerField(name){
 	newLegend.appendChild(legendLabel);
 	newLegend.setAttribute('title',name);
 	newFieldSet.appendChild(newLegend);
-	var inputBoxArray = [name + "TotalScore", name + "Hand1", name + 
+	var inputBoxArray = [name + "Hand1", name + 
 	"Hand2", name + "Hand3", name + "Hand4", name + "Hand5", name + 
-	"Hand6", name + "Hand7"];
+	"Hand6", name + "Hand7",name + "TotalScore"];
 
-	var fieldText = ["T:","1:","2:","3:","4:","5:","6:","7:"];
+	var fieldText = ["1:","2:","3:","4:","5:","6:","7:","Total:"];
 		
 	for (var index = 0; index < inputBoxArray.length; index++){
+		if(fieldText[index] != 'T'){
+			var newLine = "<br>"
+		}
 		var newFieldText = document.createTextNode(fieldText[index]);
 		newFieldSet.appendChild(newFieldText);
 		var newTextBox = document.createElement("input");
 		newTextBox.setAttribute('type', 'text');
 		newTextBox.setAttribute('id', inputBoxArray[index]);
-		newTextBox.setAttribute('size', '1');
+		newTextBox.setAttribute('size', '3');
 		newFieldSet.appendChild(newTextBox);
 		newTextBox.onchange = function(){getScore(inputBoxArray)};
 	}
-/*	
-	var newSubmit = document.createElement("input");
-	newSubmit.setAttribute('type','submit');
-	newSubmit.setAttribute('value',"Submit");
-	newSubmit.addEventListener('click', getScoreForName);
-	newSubmit.setAttribute('id', name);
-	newFieldSet.appendChild(newSubmit); 
-	function getScoreForName(){
-		getScore(inputBoxArray);
-	}*/
 }
 
 function getPlayerList(){
@@ -63,62 +56,118 @@ function getPlayerList(){
 }
 
 function createPlayer(){
+	var valid = true;
+	var errorMessage = "";
 	var name = document.getElementById('playerName').value;
-	if (name != ""){
-		createPlayerField(name);
-	}else{
-		alert('Please type name first');
+	var playerList = getPlayerList();
+	errorDiv = document.getElementById('errorDiv');
+	for (var index = 0; index < playerList.length; index++){
+		if (name == playerList[index]){
+			valid = false;
+			errorMessage = "Each name should be unique.";
+		}
 	}
-   if (localStorageSupported('localStorage')){
-	   var playerList = getPlayerList();
-	   playerList.push(name);
-	   storePlayerList(playerList);
-   }
+	
+	if (name == ""){
+		valid = false;
+		errorMessage = "Please enter a name"
+	}
+	if (!valid){
+		errorDiv.innerHTML = errorMessage;
+		removeErrorMessageTimer(errorDiv);
+	}else{
+		createPlayerField(name);
+		if (localStorageSupported('localStorage')){
+			playerList.push(name);
+			storePlayerList(playerList);
+		}
+		/*if (valid){
+			
+		} else {
+			var element = document.getElementById('errorDiv');
+			var timer = setInterval (removeMessage,10000);
+			var message = "Each name should be unique.";
+			element.innerHTML = message;
+			function removeMessage(){
+				element.innerHTML = "";
+			}
+		}
+		}*/
+	}
+	
    document.getElementById('playerName').value = "";
+}
+
+function removeErrorMessageTimer(div){
+	var timer = setInterval (removeMessage,10000);
+	function removeMessage(){
+		div.innerHTML = "";
+	}
 }
 
 function deletePlayer(){
 	var name = document.getElementById('playerName').value;
 	var playerList = getPlayerList();
+	var valid = false;
+	for (var index = 0; index < playerList.length; index++){
+		if (name == playerList[index]){
+			valid = true;
+		}
+	}
+	
+	if (!valid){
+		var timer = setInterval (removeMessage,10000);
+		var message = "Invalid player please verify spelling and capitalization";
+		var element = document.getElementById('errorDiv');
+		element.innerHTML = message;
+	} else {
 	var newPlayerList = playerList.filter(a => a !== name);
 	storePlayerList(newPlayerList);
 	var parent = document.getElementById('playerDiv');
 	var child = document.getElementById('player' + name);
 	parent.removeChild(child);
 	document.getElementById('playerName').value = "";
+	function removeMessage(element){
+		element.innerHTML = "";
+	}
+	}
 }
 
+function removeMessage(element){
+		element.innerHTML = "";
+}
+		
 function storePlayerList(list){
 	localStorage.setItem("playerList", JSON.stringify(list));
 }
 
 //function tests to see if localStorage is supported
 function localStorageSupported(type){
-   try 
-   {
-      var storage = window[type],
-	     data = 'Can_I_store_my_data_locally?';
-		 storage.setItem(data, data);
-		 storage.removeItem(data);
-		 return true;
-   }
-   catch(error)
-   {
-     return error instanceof DOMException && (
-	 error.code === 22 || 
-	 error.code === 1014 || 
-	 error.name === 'QuotaExceededError' ||
-	 error.name === 'NS_ERROR_DOM_QUOTA_REACHED') && 
-	 storage.length !== 0;
-   }
+    try 
+    {
+		var storage = window[type],
+	    data = 'Can_I_store_my_data_locally?';
+		storage.setItem(data, data);
+		storage.removeItem(data);
+		return true;
+    }
+    catch(error)
+    {
+		return error instanceof DOMException && (
+		error.code === 22 || 
+		error.code === 1014 || 
+		error.name === 'QuotaExceededError' ||
+		error.name === 'NS_ERROR_DOM_QUOTA_REACHED') && 
+		storage.length !== 0;
+    }
 }
 
 function getScore(inputArray){
 	var playerScoresArray = [];
-	for (var index = 1; index < inputArray.length; index++){
+	for (var index = 0; index < inputArray.length - 1; index++){
 	    var value = document.getElementById(inputArray[index]).value;
 	    if (value != null && value != ""){
-		    playerScoresArray[index - 1] = value;
+		    playerScoresArray[index] = value;
 	    }
 	}
 	console.log(playerScoresArray);
@@ -127,63 +176,83 @@ function getScore(inputArray){
     for (var index = 0; index < playerScoresArray.length; index++){
     score = parseInt(playerScoresArray[index]);
     if (score != NaN && score != "")
-   {
-      sum += score;
-   }
-   }
+    {
+		sum += score;
+    }
+    }
    
-   document.getElementById(inputArray[0]).value = sum;
+    document.getElementById(inputArray[7]).value = sum;
 }
 
 function whoIsWinning(playersArray){
-   var totalPointsReceived = 0;
-   for (var index = 0; index < playersArray.length; index++){
-	   var player = playersArray[index];
-   totalPointsReceived += player.totalScore;
-   }
-   var winnerScore = 1000000; //for use in validating winner score
-   var winnerName = "";
-   var winnerInfo = [winnerName,winnerScore];
-   for (var index = 0; index < playersArray.length - 1; index++){
-      if (totalPointsReceived <= 0){
-	     winnerInfo[0] = false;
-	  }else{	
-		 var player1 = playersArray[index];
-		 var player2 = playersArray[index + 1]
-         var firstName = player1.playerName;
-	     var firstScore = player1.totalScore;
-	     var secondName = player2.playerName;
-	     var secondScore = player2.totalScore;
-	     if (firstScore < winnerInfo[1]){
-	        winnerInfo[0] = firstName;
-		    winnerInfo[1] = firstScore;
-		 }
-         if (secondScore < winnerInfo[1]){
-		    winnerInfo[0] = secondName;
-		    winnerInfo[1] = secondScore;
-	     }
-	  }
-   }
-   return winnerInfo;
+	var tie = false;
+    var totalPointsReceived = 0;
+    for (var index = 0; index < playersArray.length; index++){
+	    var player = playersArray[index];
+		totalPointsReceived += player.totalScore;
+    }
+    var winnerScore = 1000000; //for use in validating winner score
+    var winnerName = "";
+    var winnerInfo = [winnerName,winnerScore];
+    for (var index = 0; index < playersArray.length - 1; index++){
+		if (totalPointsReceived <= 0){
+			winnerInfo[0] = false;
+		}else{	
+			var player1 = playersArray[index];
+			var player2 = playersArray[index + 1]
+			var firstName = player1.playerName;
+			var firstScore = player1.totalScore;
+			var secondName = player2.playerName;
+			var secondScore = player2.totalScore;
+			if (firstScore < winnerInfo[1]){
+				winnerInfo[0] = firstName;
+				winnerInfo[1] = firstScore;
+			} 
+			if (secondScore < winnerInfo[1]){
+				winnerInfo[0] = secondName;
+				winnerInfo[1] = secondScore;
+			}
+		}
+	}
+    for (var index = 0; index < playersArray.length; index++){
+	    var player = playersArray[index].playerName;
+	    var winner = winnerInfo[0];
+	    var score = playersArray[index].totalScore;
+	    if (player != winnerInfo[0] && score == winnerInfo[1]){
+		    winnerInfo[0] += " & " + playersArray[index].playerName;
+		    tie = true;
+	    }
+    }
+    winnerInfo[2] = tie;
+    return winnerInfo;
 }
 
 function displayWinner(){
 	var playersList = getPlayerList();
 	var playersArray = createPlayersArray(playersList);
     winner = whoIsWinning(playersArray);
-	if (winner[1] != 1000000){ //if winner score is 1000000 winner is generic
-    output = "The winner is " + winner[0] +
-    " with a score of " + winner[1] + ".";
-	} else {
+	if (winner[2] == false){
+		if (winner[1] != 1000000){ //if winner score is 1000000 winner is generic
+		output = "The winner is " + winner[0] +
+		" with a score of " + winner[1] + ".";
+		} else {
 		output = "Please enter some scores before declaring a winner.";
+		}
+    } else {
+		if (winner[1] != 1000000){ //if winner score is 1000000 winner is generic
+		output = "The winners are " + winner[0] +
+		" with a score of " + winner[1] + ".";
+		} else {
+		output = "Please enter some scores before declaring a winner.";
+		}
 	}
-   
+	
     document.getElementById("winnerDiv").innerHTML = output;
 	var totalPointsHand7 = 0;
     for (var index = 0; index < playersList.length; index++){
 	var score = parseInt(document.getElementById(playersList[index] + 'Hand7').value);
-		totalPointsHand7 += score;
-   }
+	    totalPointsHand7 += score;
+    }
 	if (totalPointsHand7 > 0){
 		getLeaderBoard(winner);
 	}
@@ -200,8 +269,8 @@ function createPlayersArray(list){
 }
 
 function player(name,score){
-   this.playerName = name;
-   this.totalScore = score;
+    this.playerName = name;
+    this.totalScore = score;
 }
 
 function saveGame(){
@@ -209,17 +278,22 @@ function saveGame(){
 	var data = createGameData(list);
 	saveSuccess = postSavedGame(data);
 	if (saveSuccess){
-		for (var index = 0; index < list.length; index++){
-			var name = list[index];
-			document.getElementById(name + 'TotalScore').value = "";
-			document.getElementById(name + 'Hand1').value = "";
-			document.getElementById(name + 'Hand2').value = "";
-			document.getElementById(name + 'Hand3').value = "";
-			document.getElementById(name + 'Hand4').value = "";
-			document.getElementById(name + 'Hand5').value = "";
-			document.getElementById(name + 'Hand6').value = "";
-			document.getElementById(name + 'Hand7').value = "";
-		}
+		deleteGame();
+	}
+}
+
+function deleteGame(){
+	var list = getPlayerList();
+	for (var index = 0; index < list.length; index++){
+		var name = list[index];
+		document.getElementById(name + 'TotalScore').value = "";
+		document.getElementById(name + 'Hand1').value = "";
+		document.getElementById(name + 'Hand2').value = "";
+		document.getElementById(name + 'Hand3').value = "";
+		document.getElementById(name + 'Hand4').value = "";
+		document.getElementById(name + 'Hand5').value = "";
+		document.getElementById(name + 'Hand6').value = "";
+		document.getElementById(name + 'Hand7').value = "";
 	}
 }
 
@@ -291,16 +365,17 @@ function restoreGame(){
 }
 
 function createLeaderboard(){
-	var leaderboard = ['Anonymous',1000,
-					'Anonymous',1000,
-					'Anonymous',1000,
-					'Anonymous',1000,
-					'Anonymous',1000,
-					'Anonymous',1000,
-					'Anonymous',1000,
-					'Anonymous',1000,
-					'Anonymous',1000,
-					'Anonymous',1000]
+	var leaderboard = [
+		'Anonymous',1000,
+		'Anonymous',1000,
+		'Anonymous',1000,
+		'Anonymous',1000,
+		'Anonymous',1000,
+		'Anonymous',1000,
+		'Anonymous',1000,
+		'Anonymous',1000,
+		'Anonymous',1000,
+		'Anonymous',1000]
 	
 	return JSON.stringify(leaderboard);
 }
@@ -323,16 +398,15 @@ function getLeaderBoard(winner){
 				var data = ajaxRequest.responseText;
 				var object = JSON.parse(data);
 				var leaders = object.leaderboard;
-				//var leaders = object[referenceKey].leaderboard;
+				
 				if (winner != null){
 					updateLeaderboard(leaders,winner);
 				}
-				displayLeaderBoard(leaders);
+				displayLeaderBoard(leaders);		
+			} else {
+				alert ("Something went wrong with getRequest");
+			}
 				
-				//document.getElementById("leaderboard").innerHTML = data;
-				} else {
-					alert ("Something went wrong with getRequest");
-				}
 		}
 	}
 	ajaxRequest.send(null);
@@ -378,17 +452,18 @@ function displayLeaderBoard(data){
 	
 }
 	
-function simulateGoodDataFormat(){
-	var leaderboard = ['Joe',900,
-					'Alice',900,
-					'Sam',950,
-					'Anonymous',1000,
-					'Anonymous',1000,
-					'Anonymous',1000,
-					'Anonymous',1000,
-					'Anonymous',1000,
-					'Anonymous',1000,
-					'Anonymous',1000];
+function simulateGoodDataFormat(){ //used to debug updateLeaderboard
+	var leaderboard = [
+		'Joe',900,
+		'Alice',900,
+		'Sam',950,
+		'Anonymous',1000,
+		'Anonymous',1000,
+		'Anonymous',1000,
+		'Anonymous',1000,
+		'Anonymous',1000,
+		'Anonymous',1000,
+		'Anonymous',1000];
 	var playerInfo = ['Andy',100];
 	updateLeaderboard(leaderboard,playerInfo);
 }
@@ -412,7 +487,7 @@ function updateLeaderboard(data, playerInfo){
 			}
 		}
 	}	
-	//PUT	
+		
 	postRequest(leaderboard);
 }
 

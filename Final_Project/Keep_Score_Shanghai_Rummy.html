@@ -17,17 +17,19 @@
 		
 		<!--<div class="jesterRight"><img src="Jester_by_Ambria.png" id="jesterRight" alt="Mischievous Jester" style="float:right;"></div>-->
 		<div id="head">
-		<p><h1>Shanghai Rummy</h1>
+		<h1>Shanghai Rummy</h1>
 		</div>
+		<div id="errorDiv"></div>
 		<audio id="bell" src="jingle_bell.m4a" type="audio/mp4"/>
 		Your browser does not support the audio tag</audio>
+		<div id="inputDiv">
 		<input type ="text" id="playerName" size="8"><br>
 		<button type="button" class='btn' onclick="createPlayer()">Add Player</button>
 		<button type="button" class='btn' onclick="deletePlayer()">Remove Player</button>
-		</p>
+		</div>
 		
 	</header>
-	
+	<button type="button" class='btn' onclick="displayWinner()">Declare Winner</button><br>
 	<div id="winnerDiv"></div>
 	<div class="players" id="playerDiv"></div>
 	<div id="hands" onclick="shiftDiv()">
@@ -43,10 +45,8 @@
     
    
    <div id="outputDiv"></div>
-   <!--<button type="button" onclick="storeLeaderboard()">Create Leaderboard</button><br> -->
-   <!--<button type="button" onclick="getLeaderBoard()">Retrieve Leaderboard</button><br> 
-   <button type="button" onclick="simulateGoodDataFormat()">Update Leaderboard</button><br>-->
-   <div id="leaderboard"></div>
+   <!--<button type="button" onclick="storeLeaderboard()">Reset Leaderboard</button><br> -->
+	<div id="leaderboard"></div>
    <!--<button type="button" onclick="storeLeaderboard()">Create Leaderboard</button> -->
    <div id="enjoy" class="colorShift">
    <p ontouchstart="this.innerHTML = 'Have Fun!'" ontouchend="this.innerHTML = 'Enjoy Your Game!'">Enjoy Your Game!</p></div>   
@@ -54,7 +54,10 @@
 	<button type="button" class='btn' onclick="displayWinner()">Declare Winner</button>
 	<button type="button" class='btn' onclick="saveGame()">Save Game</button>
 	<button type="button" class='btn' onclick="restoreGame()">Restore Game</button><br>
+	<button type="button" class='btn' onclick="getLeaderBoard()">View Leaderboard</button>
+	<button type="button" class='btn' onclick="deleteGame()">Delete Game</button>
 	<button type="button" class='btn' onclick="colorShift(),animateColor()">Color Shift</button><br>
+	
 	</div>
    </body>
 </html>

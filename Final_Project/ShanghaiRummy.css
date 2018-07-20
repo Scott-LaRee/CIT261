@@ -8,10 +8,11 @@ header {
 	background-color: rgba(0, 111, 11, 1);
 	color: white;
 }
+/*
 h1 {
 	text-align: center;
 }
-
+*/
 #head {
 	margin: auto;
 	align-content: center;
@@ -24,6 +25,24 @@ h1 {
 	margin: auto;
 	height: 50px;
 	width: 400px;
+}
+/*
+#inputDiv {
+	align-content: center;
+	align-self: center;
+	margin: auto;
+	height: 50px;
+	width: 400px;
+}
+*/
+
+#playerName {
+	background-color: white;
+}
+
+input {
+	background-color: rgba(152,251,152,1);
+	border: none;
 }
 
 .btn {
@@ -84,12 +103,12 @@ h1 {
 	display: inline-block;
 	min-width: 80px;
 	max-width: 35%;
-	margin:auto;
-   	padding-top: 0.75em;
-   	padding-bottom: 0.625em;
-   	padding-left: 0.75em;
-    	padding-right: 0.75em;
-    	border: 2px groove;
+	margin: auto;
+    padding-top: 0.75em;
+    padding-bottom: 0.625em;
+    padding-left: 0.75em;
+    padding-right: 0.75em;
+    border: 2px groove;
 	height: 178px;
 	padding: .5rem;
 	background-color: rgba(152, 251, 152, 1);
@@ -97,15 +116,7 @@ h1 {
 	font-weight: bold;
 	font-size: 12pt;
 }
-/*
-.players{
-	display: inline;
-	
-	padding: .5rem;
-	
-	
-}
-*/
+
 #playerDiv {
 	display: inline-block;
 	padding: 5px;
@@ -116,20 +127,21 @@ h1 {
 }
 
 fieldset { 
-      display: inline;
-      width: 60px;
-      margin-left: 2px;
-      margin-right: 2px;
-      padding-top: 0.35em;
-      padding-bottom: 0.625em;
-      padding-left: 0.75em;
-      padding-right: 0.75em;
-      border: 2px groove (internal value);
-	  background-color: rgba(152,251,152,1);
-	  color: rgba(0,75,0,1);
-	  font-weight: bold;
-	  position: relative;
+    display: inline;
+    width: 64px;
+    margin-left: 2px;
+    margin-right: 2px;
+    padding-top: 0.35em;
+    padding-bottom: 0.625em;
+    padding-left: 0.75em;
+    padding-right: 0.75em;
+    border: 2px groove (internal value);
+	background-color: rgba(152,251,152,1);
+	color: rgba(0,75,0,1);
+	font-weight: bold;
+	position: relative;
 }
 
 body {
 	background-color: rgba(0,255,0,0.35);
+}
