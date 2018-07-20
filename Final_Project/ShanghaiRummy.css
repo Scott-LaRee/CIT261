@@ -84,20 +84,18 @@ h1 {
 	display: inline-block;
 	min-width: 80px;
 	max-width: 25%;
-	margin-left: 2px;
-    margin-right: 2px;
-    padding-top: 0.75em;
-    padding-bottom: 0.625em;
-    padding-left: 0.75em;
-    padding-right: 0.75em;
-    border: 2px groove;
+	margin:auto;
+   	padding-top: 0.75em;
+   	padding-bottom: 0.625em;
+   	padding-left: 0.75em;
+    	padding-right: 0.75em;
+    	border: 2px groove;
 	height: 178px;
 	padding: .5rem;
 	background-color: rgba(152, 251, 152, 1);
 	color: rgba(0,75,0,1);
 	font-weight: bold;
 	font-size: 12pt;
-	
 }
 /*
 .players{
