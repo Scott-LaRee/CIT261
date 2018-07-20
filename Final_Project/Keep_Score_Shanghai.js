@@ -24,16 +24,12 @@ function createPlayerField(name){
 	newLegend.appendChild(legendLabel);
 	newLegend.setAttribute('title',name);
 	newFieldSet.appendChild(newLegend);
-	var inputBoxArray = [name + "Hand1", name + 
-	"Hand2", name + "Hand3", name + "Hand4", name + "Hand5", name + 
-	"Hand6", name + "Hand7",name + "TotalScore"];
 
+	var inputBoxArray = createInputBoxArray(name);
+	
 	var fieldText = ["1:","2:","3:","4:","5:","6:","7:","Total:"];
 		
 	for (var index = 0; index < inputBoxArray.length; index++){
-		if(fieldText[index] != 'T'){
-			var newLine = "<br>"
-		}
 		var newFieldText = document.createTextNode(fieldText[index]);
 		newFieldSet.appendChild(newFieldText);
 		var newTextBox = document.createElement("input");
@@ -42,7 +38,20 @@ function createPlayerField(name){
 		newTextBox.setAttribute('size', '3');
 		newFieldSet.appendChild(newTextBox);
 		newTextBox.onchange = function(){getScore(inputBoxArray)};
+		//newLine code starts here
+		if(fieldText[index] != '1'){
+			var newLine = document.createElement("BR");
+			newFieldSet.insertBefore(newLine,newFieldText);
+		}
+		//newLine code ends here	
 	}
+}
+
+function createInputBoxArray(name){
+	var inputBoxArray = [name + "Hand1", name + 
+		"Hand2", name + "Hand3", name + "Hand4", name + 
+		"Hand5", name + "Hand6", name + "Hand7",name + "TotalScore"];
+	return inputBoxArray;
 }
 
 function getPlayerList(){
@@ -74,31 +83,19 @@ function createPlayer(){
 	}
 	if (!valid){
 		errorDiv.innerHTML = errorMessage;
-		removeErrorMessageTimer(errorDiv);
+		removeMessageTimer(errorDiv);
 	}else{
 		createPlayerField(name);
 		if (localStorageSupported('localStorage')){
 			playerList.push(name);
 			storePlayerList(playerList);
 		}
-		/*if (valid){
-			
-		} else {
-			var element = document.getElementById('errorDiv');
-			var timer = setInterval (removeMessage,10000);
-			var message = "Each name should be unique.";
-			element.innerHTML = message;
-			function removeMessage(){
-				element.innerHTML = "";
-			}
-		}
-		}*/
 	}
 	
    document.getElementById('playerName').value = "";
 }
 
-function removeErrorMessageTimer(div){
+function removeMessageTimer(div){
 	var timer = setInterval (removeMessage,10000);
 	function removeMessage(){
 		div.innerHTML = "";
@@ -278,23 +275,28 @@ function saveGame(){
 	var data = createGameData(list);
 	saveSuccess = postSavedGame(data);
 	if (saveSuccess){
-		deleteGame();
+		clearGame();
 	}
 }
 
-function deleteGame(){
+function clearGame(){
 	var list = getPlayerList();
+	
 	for (var index = 0; index < list.length; index++){
 		var name = list[index];
-		document.getElementById(name + 'TotalScore').value = "";
-		document.getElementById(name + 'Hand1').value = "";
-		document.getElementById(name + 'Hand2').value = "";
-		document.getElementById(name + 'Hand3').value = "";
-		document.getElementById(name + 'Hand4').value = "";
-		document.getElementById(name + 'Hand5').value = "";
-		document.getElementById(name + 'Hand6').value = "";
-		document.getElementById(name + 'Hand7').value = "";
+		var inputArray = createInputBoxArray(name);
+		for (var iInput = 0; iInput < inputArray.length; iInput++){
+		document.getElementById(inputArray[iInput]).value = "";
+		}
 	}
+}
+
+function deleteSavedGame(){
+	localStorage.removeItem('data');
+	var message = "Saved game deleted";
+	var element = document.getElementById('winnerDiv');
+	element.innerHTML = message;
+	removeMessageTimer(element);
 }
 
 function createGameData(list){
@@ -302,14 +304,11 @@ function createGameData(list){
 	
 	for (var index = 0; index < list.length; index++){
 		var name = list[index];
+		var inputArray = createInputBoxArray(name);
 		playersData.push(name);
-		playersData.push(document.getElementById(name + 'Hand1').value);
-		playersData.push(document.getElementById(name + 'Hand2').value);
-		playersData.push(document.getElementById(name + 'Hand3').value);
-		playersData.push(document.getElementById(name + 'Hand4').value);
-		playersData.push(document.getElementById(name + 'Hand5').value);
-		playersData.push(document.getElementById(name + 'Hand6').value);
-		playersData.push(document.getElementById(name + 'Hand7').value);
+		for (var iInput = 0; iInput < 7; iInput++){
+			playersData.push(document.getElementById(inputArray[iInput]).value);
+		}
 	}
 		
 	return JSON.stringify(playersData);
@@ -323,9 +322,17 @@ function postSavedGame(data){
 
 function restoreGame(){
 	var data = JSON.parse(localStorage.getItem('data'));
+	if (!data){
+		var message = "No saved game found";
+		element = document.getElementById('winnerDiv');
+		element.innerHTML = message;
+		removeMessageTimer(element);
+		return;
+	}
 	var name = '';
 	var players = [];
     var storedPlayers = getPlayerList();
+	var inputArray = [];
 	for (var index = 0; index < data.length; index += 8){
 		players.push(data[index]);
 	}
@@ -343,9 +350,25 @@ function restoreGame(){
 			createPlayerField(name);
 			storedPlayers.push(name);
 			storePlayerList(storedPlayers);
-		}
+		}	
 	}
 	
+	for (var index = 0; index < data.length; index += 8){
+		name = data[index];
+		inputArray = createInputBoxArray(name);
+		var scores = [];
+		for (var count = 1; count < 8; count++){
+			
+			scores.push(data[index + count]);
+		}
+		for (var iInput = 0; iInput < 8; iInput++){
+			document.getElementById(inputArray[iInput]).value = scores[iInput];
+		}
+		getScore(inputArray);
+	}
+	/*for (var index = 0; index < players.length; index++){
+	var inputArray = createInputBoxArray(name);
+	}
 	for (var index = 0; index < data.length; index += 8){
 		name = data[index];
 		var scores = [];
@@ -362,6 +385,8 @@ function restoreGame(){
 		document.getElementById(name + 'Hand7').value = scores[6];
 				
 	}
+	getScore(inputArray);*/
+	
 }
 
 function createLeaderboard(){
