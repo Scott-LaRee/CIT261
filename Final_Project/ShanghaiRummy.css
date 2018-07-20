@@ -1,7 +1,7 @@
 header {
 	display: inline-block;
 	width: 100%;
-	max-height: 150px;
+	max-height: 170px;
 	padding: 1rem;
 	align-content: center;
 	align-self: center;
@@ -96,6 +96,7 @@ h1 {
 	background-color: rgba(152, 251, 152, 1);
 	color: rgba(0,75,0,1);
 	font-weight: bold;
+	font-size: 12pt;
 	
 }
 /*
