@@ -39,7 +39,7 @@ function createPlayerField(name){
 		newFieldSet.appendChild(newTextBox);
 		newTextBox.onchange = function(){getScore(inputBoxArray)};
 		//newLine code starts here
-		if(fieldText[index] != '1'){
+		if(index != 0){
 			var newLine = document.createElement("BR");
 			newFieldSet.insertBefore(newLine,newFieldText);
 		}
