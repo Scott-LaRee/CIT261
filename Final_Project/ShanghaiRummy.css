@@ -11,10 +11,10 @@ header {
 #head {
 	margin: none;
 	align-content: center;
-	align-self: center;
+	align-self: center;/*
 	-ms-transform: translateY(-20px);
 	-webkit-transform: translateY(-20px);
-	transform: translateY(-20px);
+	transform: translateY(-20px);*/
 }
 
 #playerName {
@@ -53,7 +53,10 @@ input {
 }
 
 .jesterLeft {
-	padding: 1rem;
+	margin: 20px;
+	-ms-transform: translateY(-10px);
+	-webkit-transform: translateY(-10px);
+	transform: translateY(-10px);
 }
 
 #enjoy{
