@@ -47,6 +47,18 @@ function createPlayerField(name){
 	}
 }
 
+function explainGame(){
+	var element = document.getElementById('explainDiv');
+	var newP = document.createElement("P");
+	var newText = document.createTextNode("Button will take you to an explanation on Wikipedia");
+	var newButton = document.createElement("BUTTON");
+	
+	newP.appendChild(newText);
+	element.appendChild(newP);
+	element.appendChild(newButton);
+	newButtton.setAttribute('click', 'window.open("https://en.wikipedia.org/wiki/Shanghai_rum")');
+}
+
 function createInputBoxArray(name){
 	var inputBoxArray = [name + "Hand1", name + 
 		"Hand2", name + "Hand3", name + "Hand4", name + 
@@ -113,7 +125,7 @@ function deletePlayer(){
 	}
 	
 	if (!valid){
-		var timer = setInterval (removeMessage,10000);
+		//var timer = setInterval (removeMessage,10000);
 		var message = "Invalid player please verify spelling and capitalization";
 		var element = document.getElementById('errorDiv');
 		element.innerHTML = message;
@@ -124,11 +136,28 @@ function deletePlayer(){
 	var child = document.getElementById('player' + name);
 	parent.removeChild(child);
 	document.getElementById('playerName').value = "";
+	removeMessageTimer('errorDiv');/*
 	function removeMessage(element){
 		element.innerHTML = "";
-	}
+	}*/
 	}
 }
+
+
+function deleteAllPlayers(){
+	var playerList = getPlayerList();
+	var parent = document.getElementById('playerDiv');
+	for (var index = 0; index < playerList.length; index++){
+		var child = document.getElementById('player' + playerList[index]);
+		parent.removeChild(child);
+	}
+	var message = "All players removed";
+	document.getElementById('errorDiv').innerHTML = message;
+	removeMessageTimer('errorDiv');
+	
+	localStorage.removeItem('playerList');
+}
+
 
 function removeMessage(element){
 		element.innerHTML = "";
@@ -366,47 +395,6 @@ function restoreGame(){
 		}
 		getScore(inputArray);
 	}
-	/*for (var index = 0; index < players.length; index++){
-	var inputArray = createInputBoxArray(name);
-	}
-	for (var index = 0; index < data.length; index += 8){
-		name = data[index];
-		var scores = [];
-		for (var count = 1; count < 8; count++){
-			
-			scores.push(data[index + count]);
-		}
-		document.getElementById(name + 'Hand1').value = scores[0];
-		document.getElementById(name + 'Hand2').value = scores[1];
-		document.getElementById(name + 'Hand3').value = scores[2];
-		document.getElementById(name + 'Hand4').value = scores[3];
-		document.getElementById(name + 'Hand5').value = scores[4];
-		document.getElementById(name + 'Hand6').value = scores[5];
-		document.getElementById(name + 'Hand7').value = scores[6];
-				
-	}
-	getScore(inputArray);*/
-	
-}
-
-function createLeaderboard(){
-	var leaderboard = [
-		'Anonymous',1000,
-		'Anonymous',1000,
-		'Anonymous',1000,
-		'Anonymous',1000,
-		'Anonymous',1000,
-		'Anonymous',1000,
-		'Anonymous',1000,
-		'Anonymous',1000,
-		'Anonymous',1000,
-		'Anonymous',1000]
-	
-	return JSON.stringify(leaderboard);
-}
-function storeLeaderboard(){
-	var data = createLeaderboard();
-	postRequest(data);
 }
 
 function getLeaderBoard(winner){
@@ -465,23 +453,223 @@ function postRequest(data){
 	ajaxRequest.send(JSON.stringify({leaderboard:data}));
 }
 
+var leaderBoardClickCount = 0;
+
+function eventHandlerLeaderBoard(){
+	if (leaderBoardClickCount ==0){
+		getLeaderBoard();
+		leaderBoardClickCount++;
+		document.getElementById('ldrbrd').innerHTML = 'Hide Leaderboard';
+	} else {
+		hideLeaderBoard();
+		leaderBoardClickCount = 0;
+		document.getElementById('ldrbrd').innerHTML = 'View Leaderboard';
+	}
+}
+
+function hideLeaderBoard(){
+	parent = document.getElementById('leaderboard');
+	child = document.getElementById('highScores');
+	parent.removeChild(child);
+	element = document.getElementById('tableHeading');
+	parent.removeChild(element);
+}
+
 function displayLeaderBoard(data){
 	var leaders = data;
-	
 	var output = '';
+	var div = document.getElementById('leaderboard');
+	var newH2 = document.createElement('H2');
+	
+	var newText = document.createTextNode("High Scores");
+	newH2.appendChild(newText);
+	div.appendChild(newH2);
+	
+	newH2.setAttribute('id','tableHeading');
+	var newTable = document.createElement("TABLE");
+	newTable.setAttribute('id','highScores');
+	div.appendChild(newTable);
+	var row0 = newTable.insertRow(0);
+	var row1 = newTable.insertRow(1);
+	var row2 = newTable.insertRow(2);
+	var row3 = newTable.insertRow(3);
+	var row4 = newTable.insertRow(4);
+	var row5 = newTable.insertRow(5);
+	var row6 = newTable.insertRow(6);
+	var row7 = newTable.insertRow(7);
+	var row8 = newTable.insertRow(8);
+	var row9 = newTable.insertRow(9);
+	var row10 = newTable.insertRow(10);
+	var rows = [row1,row2,row3,row4,row5,row6,row7,row8,row9,row10];
+	var header1 = document.createElement("TH");
+	var header2 = document.createElement("TH");
+	var header3 = document.createElement("TH");
+	var headers = [header1,header2,header3];
+	var headerValues = ['#','Name','Score'];
+	var newData1 = row1.insertCell(0);
+	var newData2 = row1.insertCell(1);
+	var newData3 = row1.insertCell(2);
+	var newData4 = row2.insertCell(0);
+	var newData5 = row2.insertCell(1);
+	var newData6 = row2.insertCell(2);
+	var newData7 = row3.insertCell(0);
+	var newData8 = row3.insertCell(1);
+	var newData9 = row3.insertCell(2);
+	var newData10 = row4.insertCell(0);
+	var newData11 = row4.insertCell(1);
+	var newData12 = row4.insertCell(2);
+	var newData13 = row5.insertCell(0);
+	var newData14 = row5.insertCell(1);
+	var newData15 = row5.insertCell(2);
+	var newData16 = row6.insertCell(0);
+	var newData17 = row6.insertCell(1);
+	var newData18 = row6.insertCell(2);
+	var newData19 = row7.insertCell(0);
+	var newData20 = row7.insertCell(1);
+	var newData21 = row7.insertCell(2);
+	var newData22 = row8.insertCell(0);
+	var newData23 = row8.insertCell(1);
+	var newData24 = row8.insertCell(2);
+	var newData25 = row9.insertCell(0);
+	var newData26 = row9.insertCell(1);
+	var newData27 = row9.insertCell(2);
+	var newData28 = row10.insertCell(0);
+	var newData29 = row10.insertCell(1);
+	var newData30 = row10.insertCell(2);
+	var newDatas = [newData1,newData2,newData3,newData4,newData5,
+		newData6,newData7,newData8,newData9,newData10,
+		newData11,newData12,newData13,newData14,newData15,
+		newData16,newData17,newData18,newData19,newData20,
+		newData21,newData22,newData23,newData24,newData25,
+		newData26,newData27,newData28,newData29,newData30];
+	
+	
+	for (var index = 0; index < 3; index++){
+		headers[index].innerHTML = headerValues[index];
+		row0.appendChild(headers[index]);
+	}
+	
+	newData1.innerHTML = 1;
+	newData2.innerHTML = leaders[0];
+	newData3.innerHTML = leaders[1];
+	row1.appendChild(newData1);
+	row1.appendChild(newData2);
+	row1.appendChild(newData3);
+		
+	newData4.innerHTML = 2;
+	newData5.innerHTML = leaders[2];
+	newData6.innerHTML = leaders[3];
+	row2.appendChild(newData4);
+	row2.appendChild(newData5);
+	row2.appendChild(newData6);
+	
+	newData7.innerHTML = 3;
+	newData8.innerHTML = leaders[4];
+	newData9.innerHTML = leaders[5];
+	row3.appendChild(newData7);
+	row3.appendChild(newData8);
+	row3.appendChild(newData9);
+	
+	newData10.innerHTML = 4;
+	newData11.innerHTML = leaders[6];
+	newData12.innerHTML = leaders[7];
+	row4.appendChild(newData10);
+	row4.appendChild(newData11);
+	row4.appendChild(newData12);
+	
+	newData13.innerHTML = 5;
+	newData14.innerHTML = leaders[8];
+	newData15.innerHTML = leaders[9];
+	row5.appendChild(newData13);
+	row5.appendChild(newData14);
+	row5.appendChild(newData15);
+	
+	newData16.innerHTML = 6;
+	newData17.innerHTML = leaders[10];
+	newData18.innerHTML = leaders[11];
+	row6.appendChild(newData16);
+	row6.appendChild(newData17);
+	row6.appendChild(newData18);
+	
+	newData19.innerHTML = 7;
+	newData20.innerHTML = leaders[12];
+	newData21.innerHTML = leaders[13];
+	row7.appendChild(newData19);
+	row7.appendChild(newData20);
+	row7.appendChild(newData21);
+	
+	newData22.innerHTML = 8;
+	newData23.innerHTML = leaders[14];
+	newData24.innerHTML = leaders[15];
+	row8.appendChild(newData22);
+	row8.appendChild(newData23);
+	row8.appendChild(newData24);
+	
+	newData25.innerHTML = 9;
+	newData26.innerHTML = leaders[16];
+	newData27.innerHTML = leaders[17];
+	row9.appendChild(newData25);
+	row9.appendChild(newData26);
+	row9.appendChild(newData27);
+	
+	newData28.innerHTML = 10;
+	newData29.innerHTML = leaders[18];
+	newData30.innerHTML = leaders[19];
+	row10.appendChild(newData28);
+	row10.appendChild(newData29);
+	row10.appendChild(newData30);
+
+	
+	/*for (var index = 0; index < rows.length; index++){
+		var num = (index / 2) + 1;
+		newTable.appendChild(rows[index]);
+	}
+	for (var iRow = 0; iRow < 10; iRow++){
+		for (var iCol = 0; iCol < 3; iCol++){
+			rows[iRow].appendChild(newDatas[iRow + iCol]);
+		}
+	}
+	
+	var lCount = 0;
+	var newRow = true;
+	for (var iRow = 0; index < 10; index++){
+		for (var iCol = 0; iCol < 3; iCol++){
+			if (newRow){
+				var nums = [1,2,3,4,5,6,7,8,9,10];
+				newDatas[iRow + iCol].innerHTML = nums[iRow];
+				newRow = false;
+			} else {		
+				newDatas[iRow + iCol].innerHTML = leaders[lCount];
+				lCount++
+			}
+		}
+		newRow = true;
+	}
+	/*
+		for (var iLeaders = 0; iLeaders < 3; iLeaders++){
+			if (iLeaders != 0){
+				var inc = index + iLeaders - 1;
+			newDatas[index + iLeaders].innerHTML = leaders[inc];
+			rows[index + iLeaders].appendChild(newDatas[index + iLeaders]);
+			} else {
+				newDatas[index + iLeaders].innerHTML = num;
+			}
+		}
+	
+	/*
     for (var index = 0; index < leaders.length; index += 2){
 		var num = (index / 2) + 1;
 		output += num + " " + leaders[index] + " " + leaders[index + 1] + '<br>';
 		document.getElementById("leaderboard").innerHTML = output;
-    }
+    }*/
 	
 }
 	
-function simulateGoodDataFormat(){ //used to debug updateLeaderboard
+function createLeaderboard(){ //used to debug updateLeaderboard
 	var leaderboard = [
-		'Joe',900,
-		'Alice',900,
-		'Sam',950,
+		'Anonymous',1000,
+		'Anonymous',1000,
+		'Anonymous',1000,
 		'Anonymous',1000,
 		'Anonymous',1000,
 		'Anonymous',1000,
@@ -489,7 +677,7 @@ function simulateGoodDataFormat(){ //used to debug updateLeaderboard
 		'Anonymous',1000,
 		'Anonymous',1000,
 		'Anonymous',1000];
-	var playerInfo = ['Andy',100];
+	var playerInfo = ['Andy',10000];
 	updateLeaderboard(leaderboard,playerInfo);
 }
 
@@ -498,7 +686,7 @@ function updateLeaderboard(data, playerInfo){
 	
 	var temp1 = playerInfo;
 	var temp2;
-	for (var index = 0; index < leaderboard.length / 2; index += 2){
+	for (var index = 0; index < leaderboard.length; index += 2){
 		temp2 = [leaderboard[index],leaderboard[index + 1]];
 		for (var objectIndex = 0; objectIndex < 2; objectIndex++)
 		{
@@ -516,13 +704,86 @@ function updateLeaderboard(data, playerInfo){
 	postRequest(leaderboard);
 }
 
+var countColorClicks = 0;
+
 function colorShift(){
-	var timer = setInterval(colorReturn,4000);
+	if (countColorClicks == 0){
+		countColorClicks++;
+		colorBlue();
+	} else {
+		colorGreen();
+		countColorClicks = 0;
+	}
+}
+
+function colorBlue(){
 	var colorShift = document.getElementsByClassName("colorShift");
-	
+	var list = getPlayerList();
 	for (var index = 0; index < colorShift.length; index++){
 		colorShift[index].style.background = "darkBlue";
-	}		
+	}
+	var element = document.getElementById("body");
+	element.style.transition = "background 2.0s ease-in 0.1s";
+	element.style.background = "lightBlue";
+	element.style.color = "darkBlue";
+	for (var index = 0; index < list.length; index++){
+		var field = document.getElementById('player'+ list[index]);
+		field.style.transition = "background 2.0s ease-in 0.1s";
+		field.style.background = "blue";
+		field.style.color = "white";
+	}
+	var input = document.getElementsByTagName("INPUT");
+	for (var index = 0; index < input.length; index++){
+		input[index].style.transition = "background 2.0s ease-in 0.1s";
+		input[index].style.background = "lightBlue";
+		input[index].style.color = "darkBlue";
+	}
+	var hands = document.getElementById("hands");
+	hands.style.transition = "background 2.0s ease-in 0.1s";
+	hands.style.background = "lightBlue";
+	hands.style.color = "darkBlue";	 
+	var buttons = document.getElementsByClassName('btn');
+	for (var index = 0; index < buttons.length; index++){
+		buttons[index].style.transition = "background 2.0s ease-in 0.1s";
+		buttons[index].style.background = "darkBlue";
+		buttons[index].style.color = "white";
+	}
+	
+	
+}
+
+function colorGreen(){
+	var colorShift = document.getElementsByClassName("colorShift");
+	var list = getPlayerList();
+	for (var index = 0; index < colorShift.length; index++){
+		colorShift[index].style.background = "rgba(0,111,11,1)";
+	}
+	var element = document.getElementById("body");
+	element.style.transition = "background 2.0s ease-in 0.1s";
+	element.style.background = "rgba(0,255,0,0.35)";
+	element.style.color = "rgba(0,75,0,1)";
+	for (var index = 0; index < list.length; index++){
+		var field = document.getElementById('player'+ list[index]);
+		field.style.transition = "background 2.0s ease-in 0.1s";
+		field.style.background = "rgba(152,251,152,1)";
+		field.style.color = "rgba(0,75,0,1)";
+	}
+	var input = document.getElementsByTagName("INPUT");
+	for (var index = 0; index < input.length; index++){
+		input[index].style.transition = "background 2.0s ease-in 0.1s";
+		input[index].style.background = "rgba(152,251,152,1)";
+		input[index].style.color = "rgba(0,75,0,1)";
+	}
+	var hands = document.getElementById("hands");
+	hands.style.transition = "background 2.0s ease-in 0.1s";
+	hands.style.background = "rgba(152,251,152,1)";
+	hands.style.color = "rgba(0,75,0,1)";	 
+	var buttons = document.getElementsByClassName('btn');
+	for (var index = 0; index < buttons.length; index++){
+		buttons[index].style.transition = "background 2.0s ease-in 0.1s";
+		buttons[index].style.background = "rgba(0,111,11,1)";
+		buttons[index].style.color = "white";
+	}
 }
 
 function colorReturn(){
@@ -533,7 +794,6 @@ function colorReturn(){
 }
 
 function animateColor(){
-	var timer = setInterval (returnAnimation,4000);
 	var element = document.getElementById("body");
 	element.style.transition = "background 2.0s ease-in 0.1s";
 	element.style.background = "lightBlue";

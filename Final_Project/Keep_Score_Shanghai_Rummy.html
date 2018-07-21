@@ -6,11 +6,13 @@
    <title>Shanghai Rummy</title>
    <link type="text/css" rel="StyleSheet" href="ShanghaiRummy.css">
    <script type="text/javascript" src="Keep_Score_Shanghai.js" charset="UTF-8"></script>
-
+			
 </head>
 <body id="body" onload="detectPlayers()">
-	
-    <header class="colorShift">
+	<audio id="bell" src="jingle_bell.m4a" type="audio/mp4"/>
+		Your browser does not support the audio tag</audio>
+    
+	<header class="colorShift">
 	
 		<div class="jesterLeft" onclick="playJingle()">
 		<img src="Jester_by_Ambria.png" id="jesterLeft" alt="Mischievous Jester" style="float:left;"></div>
@@ -19,35 +21,43 @@
 		<div id="head">
 		<h1>Shanghai Rummy</h1>
 		</div>
+		
 		<div id="errorDiv"></div>
-		<audio id="bell" src="jingle_bell.m4a" type="audio/mp4"/>
-		Your browser does not support the audio tag</audio>
+
 		<div id="inputDiv">
-		<input type ="text" id="playerName" size="8"><br>
+		<input type ="text" id="playerName" size="8" maxlength="10"><br>
 		<button type="button" class='btn' onclick="createPlayer()">Add Player</button>
 		<button type="button" class='btn' onclick="deletePlayer()">Remove Player</button>
+		<button type="button" class='btn' onclick="deleteAllPlayers()">Remove All</button>
 		</div>
-		
 	</header>
-	<button type="button" class='btn' onclick="displayWinner()">Declare Winner</button><br>
+	
+	<br>
+	<p>Love to play Shanghai Rummy? Use our app to help you keep score!</p>
+	
+	<button type="button" class='btn' onclick="displayWinner()">Declare Winner</button>
+	<button type="button" class='btn' onclick="saveGame()">Save Game</button>
+	<button type="button" class='btn' onclick="restoreGame()">Restore Game</button><br>	
 	<div id="winnerDiv"></div>
 	<div class="players" id="playerDiv"></div>
-	<div id="hands" onclick="shiftDiv()">
-	<p >
-	   2 Sets <br>
-	   1 Set 1 Run <br>
-	   2 Runs <br>
-	   2 Sets 1 Run <br>
-	   1 Set 2 Runs <br>
-	   3 Sets <br>
-	   3 Runs</p> <br>
+	   <div id="hands" onclick="hideHands()">
+	<p id="handP">
+		2 Sets <br>
+		1 Set 1 Run <br>
+		2 Runs <br>
+		2 Sets 1 Run <br>
+		1 Set 2 Runs <br>
+		3 Sets <br>
+		3 Runs <br>
+		</p><br>    
 	</div>
-    
-   
-   <div id="outputDiv"></div>
+	
+	<div id="cardPoints"></div>
+	<li><a href="https://en.wikipedia.org/wiki/Shanghai_rum" target="_blank">Wikipedia Game Explanation</a></li>
+   <div id="explainDiv"></div>
    <!--<button type="button" onclick="storeLeaderboard()">Reset Leaderboard</button><br> -->
 	<div id="leaderboard"></div>
-   <!--<button type="button" onclick="storeLeaderboard()">Create Leaderboard</button> -->
+   <!--<button type="button" onclick="createLeaderboard()">Create Leaderboard</button>-->
    <div id="enjoy" class="colorShift">
    <p ontouchstart="this.innerHTML = 'Have Fun!'" ontouchend="this.innerHTML = 'Enjoy Your Game!'">Enjoy Your Game!</p></div>   
 	<div id="btnDiv">
@@ -55,10 +65,12 @@
 	<button type="button" class='btn' onclick="saveGame()">Save Game</button>
 	<button type="button" class='btn' onclick="restoreGame()">Restore Game</button><br>
 	<button type="button" class='btn' onclick="deleteSavedGame()">Delete Saved</button>
-	<button type="button" class='btn' onclick="getLeaderBoard()">View Leaderboard</button>
+	<button type="button" class='btn' onclick="eventHandlerLeaderBoard()" id ='ldrbrd'>View Leaderboard</button>
 	<button type="button" class='btn' onclick="clearGame()">Clear Game</button>
-	<button type="button" class='btn' onclick="colorShift(),animateColor()">Color Shift</button><br>
-	
+	<button type="button" class='btn' onclick="colorShift()">Color Shift</button><br>
 	</div>
+	
+
+
    </body>
 </html>
