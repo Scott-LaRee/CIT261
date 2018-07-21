@@ -44,7 +44,7 @@ h1 {
 
 input {
 	background-color: rgba(152,251,152,1);
-	border: none;
+	border: 2px groove;
 }
 
 .btn {
@@ -146,4 +146,6 @@ fieldset {
 
 body {
 	background-color: rgba(0,255,0,0.35);
+	font-weight: bold;
+	color: rgba(0,75,0,1);
 }
