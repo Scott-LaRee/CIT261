@@ -45,6 +45,9 @@ function createPlayerField(name){
 		}
 		//newLine code ends here	
 	}
+	if (countColorClicks != 0){
+		colorBlue();
+	}
 }
 
 function explainGame(){
@@ -114,8 +117,11 @@ function removeMessageTimer(div){
 	}
 }
 
-function deletePlayer(){
+function deletePlayer(passedName){
 	var name = document.getElementById('playerName').value;
+	if(!name){
+		name = passedName;
+	}
 	var playerList = getPlayerList();
 	var valid = false;
 	for (var index = 0; index < playerList.length; index++){
@@ -365,6 +371,21 @@ function restoreGame(){
 	for (var index = 0; index < data.length; index += 8){
 		players.push(data[index]);
 	}
+	
+	for (var iStored = 0; iStored < storedPlayers.length; iStored++){
+		var name = storedPlayers[iStored];
+		var playerIncluded = false;
+		for (var iPlayers = 0; iPlayers < players.length; iPlayers++){
+			if(name == players[iPlayers]){
+				playerIncluded = true;
+				
+			}			
+		}
+		
+		if(!playerIncluded){
+			deletePlayer(name);
+		}
+	}	
 	
 	for (var iPlayers = 0; iPlayers < players.length; iPlayers++){
 		var name = players[iPlayers];
