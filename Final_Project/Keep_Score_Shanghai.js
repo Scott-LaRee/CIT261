@@ -752,9 +752,9 @@ function colorBlue(){
 	element.style.color = "darkBlue";
 	for (var index = 0; index < list.length; index++){
 		var field = document.getElementById('player'+ list[index]);
-		field.style.transition = "background 2.0s ease-in 0.1s";
-		field.style.background = "blue";
-		field.style.color = "white";
+		//field.style.transition = "background 2.0s ease-in 0.1s";
+		//field.style.background = "blue";
+		field.style.color = "darkBlue";
 	}
 	var input = document.getElementsByTagName("INPUT");
 	for (var index = 0; index < input.length; index++){
@@ -772,7 +772,8 @@ function colorBlue(){
 		buttons[index].style.background = "darkBlue";
 		buttons[index].style.color = "white";
 	}
-	
+	var playerInput = document.getElementById('playerName');
+	playerInput.style.background = "white";
 	
 }
 
@@ -784,12 +785,13 @@ function colorGreen(){
 	}
 	var element = document.getElementById("body");
 	element.style.transition = "background 2.0s ease-in 0.1s";
-	element.style.background = "rgba(0,255,0,0.35)";
+	element.style.background = "rgba(208,230,240,1)";
 	element.style.color = "rgba(0,75,0,1)";
+	
 	for (var index = 0; index < list.length; index++){
 		var field = document.getElementById('player'+ list[index]);
-		field.style.transition = "background 2.0s ease-in 0.1s";
-		field.style.background = "rgba(152,251,152,1)";
+	//	field.style.transition = "background 2.0s ease-in 0.1s";
+	//	field.style.background = "rgba(152,251,152,1)";
 		field.style.color = "rgba(0,75,0,1)";
 	}
 	var input = document.getElementsByTagName("INPUT");
@@ -808,6 +810,8 @@ function colorGreen(){
 		buttons[index].style.background = "rgba(0,111,11,1)";
 		buttons[index].style.color = "white";
 	}
+	var playerInput = document.getElementById('playerName');
+	playerInput.style.background = "white";
 }
 
 function colorReturn(){
@@ -815,18 +819,6 @@ function colorReturn(){
 	for (var index = 0; index < colorShift.length; index++){
 		colorShift[index].style.background = "rgba(0, 111, 11, 1)";
 	}
-}
-
-function animateColor(){
-	var element = document.getElementById("body");
-	element.style.transition = "background 2.0s ease-in 0.1s";
-	element.style.background = "lightBlue";
-}
-
-function returnAnimation(){
-	var element = document.getElementById("body");
-	element.style.transition = "background 2.0s ease-in 0.1s";
-	element.style.background = "rgba(152,251,152,1)";
 }
 
 function playJingle(){
