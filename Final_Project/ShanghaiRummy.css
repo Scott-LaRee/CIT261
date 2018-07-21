@@ -8,11 +8,12 @@ header {
 	color: white;
 }
 
+
 #head {
-	margin: auto;
+	margin: none;
 	align-content: center;
 	align-self: center;
-
+	transform: translateY(-20px);
 }
 
 #btnDiv {
