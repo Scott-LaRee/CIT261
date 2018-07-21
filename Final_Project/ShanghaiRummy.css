@@ -26,8 +26,10 @@ h1 {
 	height: 50px;
 	width: 400px;
 }
-/*
+
 #inputDiv {
+	margin-left: 150px;
+}/*
 	align-content: center;
 	align-self: center;
 	margin: auto;
