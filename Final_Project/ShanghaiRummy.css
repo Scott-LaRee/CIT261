@@ -8,22 +8,14 @@ header {
 	color: white;
 }
 
-
 #head {
 	margin: none;
 	align-content: center;
 	align-self: center;
+	-ms-transform: translateY(-20px);
+	-webkit-transform: translateY(-20px);
 	transform: translateY(-20px);
 }
-
-#btnDiv {
-	align-content: center;
-	align-self: center;
-	margin: auto;
-	height: 50px;
-	width: 400px;
-}
-
 
 #playerName {
 	background-color: white;

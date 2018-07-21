@@ -1,3 +1,4 @@
+// check local storage for stored player list and send it to build player field
 function detectPlayers(){
 	var playerList = getPlayerList();
 	if (playerList != null){
@@ -7,13 +8,7 @@ function detectPlayers(){
 	}
 }
 
-function populatePlayers(list){
-	var name = "";
-	for(var index = 0; index < list.length; index++){
-		createPlayerField(list[index]);
-	}
-}
-
+//creates the player score fields with DOM
 function createPlayerField(name){
 	var playerDiv = document.getElementById('playerDiv');
 	var newFieldSet = document.createElement("fieldset");
@@ -28,7 +23,8 @@ function createPlayerField(name){
 	var inputBoxArray = createInputBoxArray(name);
 	
 	var fieldText = ["1:","2:","3:","4:","5:","6:","7:","Total:"];
-		
+	
+		//adds input boxes to fieldset
 	for (var index = 0; index < inputBoxArray.length; index++){
 		var newFieldText = document.createTextNode(fieldText[index]);
 		newFieldSet.appendChild(newFieldText);
@@ -38,30 +34,16 @@ function createPlayerField(name){
 		newTextBox.setAttribute('size', '3');
 		newFieldSet.appendChild(newTextBox);
 		newTextBox.onchange = function(){getScore(inputBoxArray)};
-		//newLine code starts here
+		
+		//ensures that the numbers will be before the input boxes
 		if(index != 0){
 			var newLine = document.createElement("BR");
 			newFieldSet.insertBefore(newLine,newFieldText);
 		}
-		//newLine code ends here	
-	}
-	if (countColorClicks != 0){
-		colorBlue();
 	}
 }
 
-function explainGame(){
-	var element = document.getElementById('explainDiv');
-	var newP = document.createElement("P");
-	var newText = document.createTextNode("Button will take you to an explanation on Wikipedia");
-	var newButton = document.createElement("BUTTON");
-	
-	newP.appendChild(newText);
-	element.appendChild(newP);
-	element.appendChild(newButton);
-	newButtton.setAttribute('click', 'window.open("https://en.wikipedia.org/wiki/Shanghai_rum")');
-}
-
+//creates an array holding the input box id names 
 function createInputBoxArray(name){
 	var inputBoxArray = [name + "Hand1", name + 
 		"Hand2", name + "Hand3", name + "Hand4", name + 
@@ -69,6 +51,7 @@ function createInputBoxArray(name){
 	return inputBoxArray;
 }
 
+//retrieves the player list from local storage returns an empty array if nothing is stored
 function getPlayerList(){
 	var playerList = JSON.parse(localStorage.getItem('playerList'));
 	if (playerList != null){
@@ -79,12 +62,15 @@ function getPlayerList(){
 	}
 }
 
+//retrieves new player name and performs necessary tasks to add them to the game
 function createPlayer(){
 	var valid = true;
 	var errorMessage = "";
 	var name = document.getElementById('playerName').value;
 	var playerList = getPlayerList();
 	errorDiv = document.getElementById('errorDiv');
+	
+	//verifies that the name is different from the current players
 	for (var index = 0; index < playerList.length; index++){
 		if (name == playerList[index]){
 			valid = false;
@@ -92,10 +78,13 @@ function createPlayer(){
 		}
 	}
 	
+	//doesn't allow a blank name
 	if (name == ""){
 		valid = false;
 		errorMessage = "Please enter a name"
 	}
+	
+	//determines reaction to validity
 	if (!valid){
 		errorDiv.innerHTML = errorMessage;
 		removeMessageTimer(errorDiv);
@@ -107,9 +96,11 @@ function createPlayer(){
 		}
 	}
 	
+	//clears player name input box
    document.getElementById('playerName').value = "";
 }
 
+//sets a timer and removes messages that should be temporary
 function removeMessageTimer(div){
 	var timer = setInterval (removeMessage,10000);
 	function removeMessage(){
@@ -117,12 +108,18 @@ function removeMessageTimer(div){
 	}
 }
 
+//retrieves name to be removed and performs necessary tasks
 function deletePlayer(passedName){
 	var name = document.getElementById('playerName').value;
+	
+	//this is necessary for when restoreGame calls this function, it passes the name
 	if(!name){
 		name = passedName;
 	}
+	
 	var playerList = getPlayerList();
+	
+	//checks that the name being removed is a stored name
 	var valid = false;
 	for (var index = 0; index < playerList.length; index++){
 		if (name == playerList[index]){
@@ -130,33 +127,34 @@ function deletePlayer(passedName){
 		}
 	}
 	
+	//displays error message if invalid 
 	if (!valid){
-		//var timer = setInterval (removeMessage,10000);
 		var message = "Invalid player please verify spelling and capitalization";
 		var element = document.getElementById('errorDiv');
 		element.innerHTML = message;
 	} else {
+		//removes player if valid
 	var newPlayerList = playerList.filter(a => a !== name);
 	storePlayerList(newPlayerList);
 	var parent = document.getElementById('playerDiv');
 	var child = document.getElementById('player' + name);
 	parent.removeChild(child);
 	document.getElementById('playerName').value = "";
-	removeMessageTimer('errorDiv');/*
-	function removeMessage(element){
-		element.innerHTML = "";
-	}*/
+	removeMessageTimer('errorDiv');
 	}
 }
 
-
+//will remove all players and delete players in local storage
 function deleteAllPlayers(){
 	var playerList = getPlayerList();
 	var parent = document.getElementById('playerDiv');
+	
+	//removes players one at a time
 	for (var index = 0; index < playerList.length; index++){
 		var child = document.getElementById('player' + playerList[index]);
 		parent.removeChild(child);
 	}
+	
 	var message = "All players removed";
 	document.getElementById('errorDiv').innerHTML = message;
 	removeMessageTimer('errorDiv');
@@ -164,11 +162,7 @@ function deleteAllPlayers(){
 	localStorage.removeItem('playerList');
 }
 
-
-function removeMessage(element){
-		element.innerHTML = "";
-}
-		
+//stores playerList in local storage		
 function storePlayerList(list){
 	localStorage.setItem("playerList", JSON.stringify(list));
 }
@@ -194,17 +188,25 @@ function localStorageSupported(type){
     }
 }
 
+//calculates the total of each player
 function getScore(inputArray){
 	var playerScoresArray = [];
+	
+	//creates an array of scores
 	for (var index = 0; index < inputArray.length - 1; index++){
 	    var value = document.getElementById(inputArray[index]).value;
 	    if (value != null && value != ""){
 		    playerScoresArray[index] = value;
-	    }
+	    }else {
+			playerScoresArray[index] = 0; //to avoid NaN
+		}
 	}
+	
 	console.log(playerScoresArray);
 	var sum = 0;
     var score = 0;
+	
+	//computes sum
     for (var index = 0; index < playerScoresArray.length; index++){
     score = parseInt(playerScoresArray[index]);
     if (score != NaN && score != "")
@@ -216,16 +218,22 @@ function getScore(inputArray){
     document.getElementById(inputArray[7]).value = sum;
 }
 
+//determines the winner
 function whoIsWinning(playersArray){
 	var tie = false;
     var totalPointsReceived = 0;
+	
+	//verifies that scores have been entered
     for (var index = 0; index < playersArray.length; index++){
 	    var player = playersArray[index];
 		totalPointsReceived += player.totalScore;
     }
-    var winnerScore = 1000000; //for use in validating winner score
+	
+    var winnerScore = 1000000; //for use in validating winner score 
     var winnerName = "";
     var winnerInfo = [winnerName,winnerScore];
+	
+	//compares scores to determine lowest (high scores are bad)
     for (var index = 0; index < playersArray.length - 1; index++){
 		if (totalPointsReceived <= 0){
 			winnerInfo[0] = false;
@@ -246,6 +254,8 @@ function whoIsWinning(playersArray){
 			}
 		}
 	}
+	
+	//determines if there is a tie
     for (var index = 0; index < playersArray.length; index++){
 	    var player = playersArray[index].playerName;
 	    var winner = winnerInfo[0];
@@ -255,20 +265,25 @@ function whoIsWinning(playersArray){
 		    tie = true;
 	    }
     }
+	
     winnerInfo[2] = tie;
     return winnerInfo;
 }
 
+//displays the winner
 function displayWinner(){
 	var playersList = getPlayerList();
 	var playersArray = createPlayersArray(playersList);
-    winner = whoIsWinning(playersArray);
+    var winner = whoIsWinning(playersArray);
+	
+	//checks for tie condition and determines output based on result
 	if (winner[2] == false){
 		if (winner[1] != 1000000){ //if winner score is 1000000 winner is generic
 		output = "The winner is " + winner[0] +
 		" with a score of " + winner[1] + ".";
 		} else {
 		output = "Please enter some scores before declaring a winner.";
+		removeMessageTimer('winnerDiv');
 		}
     } else {
 		if (winner[1] != 1000000){ //if winner score is 1000000 winner is generic
@@ -280,19 +295,29 @@ function displayWinner(){
 	}
 	
     document.getElementById("winnerDiv").innerHTML = output;
+	if(winner[1] == 1000000){
+		removeMessageTimer('winnerDiv');
+	}
 	var totalPointsHand7 = 0;
+	
+	//sums Hand7 scores
     for (var index = 0; index < playersList.length; index++){
 	var score = parseInt(document.getElementById(playersList[index] + 'Hand7').value);
 	    totalPointsHand7 += score;
     }
+	
+	//don't want to update leaderboard for an unfinished game
 	if (totalPointsHand7 > 0){
 		getLeaderBoard(winner);
 	}
 }
 
+//creates an array holding player name and their scores
 function createPlayersArray(list){
 	var playerScores = [];
 	var score = '';
+	
+	//converts input to integer and populates array
 	for (var index = 0; index < list.length; index++){
 		score = parseInt(document.getElementById(list[index] + 'TotalScore').value);
 		playerScores[index] = new player (list[index], score);
@@ -300,11 +325,13 @@ function createPlayersArray(list){
 	return playerScores;
 }
 
+//creates player for playerScores array
 function player(name,score){
     this.playerName = name;
     this.totalScore = score;
 }
 
+//performs tasks to save the game in local storage
 function saveGame(){
 	var list = getPlayerList();
 	var data = createGameData(list);
@@ -314,6 +341,7 @@ function saveGame(){
 	}
 }
 
+//empties the input fields of the current game board
 function clearGame(){
 	var list = getPlayerList();
 	
@@ -326,6 +354,7 @@ function clearGame(){
 	}
 }
 
+//deletes the current saved game
 function deleteSavedGame(){
 	localStorage.removeItem('data');
 	var message = "Saved game deleted";
@@ -334,9 +363,11 @@ function deleteSavedGame(){
 	removeMessageTimer(element);
 }
 
+//creates data to be stored for save game
 function createGameData(list){
 	var playersData = []
 	
+	//creates array with player names and scores
 	for (var index = 0; index < list.length; index++){
 		var name = list[index];
 		var inputArray = createInputBoxArray(name);
@@ -349,14 +380,18 @@ function createGameData(list){
 	return JSON.stringify(playersData);
 }
 
+//stores save data in local storage
 function postSavedGame(data){
 	var success = true;
 	localStorage.setItem('data', data);
 	return success;
 }	
 
+//retrieves save game from local storage and populates the game board
 function restoreGame(){
 	var data = JSON.parse(localStorage.getItem('data'));
+	
+	//determines reaction if there is no saved game
 	if (!data){
 		var message = "No saved game found";
 		element = document.getElementById('winnerDiv');
@@ -364,17 +399,23 @@ function restoreGame(){
 		removeMessageTimer(element);
 		return;
 	}
+	
 	var name = '';
 	var players = [];
     var storedPlayers = getPlayerList();
 	var inputArray = [];
+	
+	//creates an array of names in saved game
 	for (var index = 0; index < data.length; index += 8){
 		players.push(data[index]);
 	}
 	
+	//removes stored players who are not in the saved game
 	for (var iStored = 0; iStored < storedPlayers.length; iStored++){
 		var name = storedPlayers[iStored];
 		var playerIncluded = false;
+		
+		//compares player names
 		for (var iPlayers = 0; iPlayers < players.length; iPlayers++){
 			if(name == players[iPlayers]){
 				playerIncluded = true;
@@ -387,14 +428,18 @@ function restoreGame(){
 		}
 	}	
 	
+	//adds stored players who are not stored to the game board and saves an updated player list
 	for (var iPlayers = 0; iPlayers < players.length; iPlayers++){
 		var name = players[iPlayers];
 		var playerStored = 0;
+		
+		//compares player names
 		for (var iStored = 0; iStored < storedPlayers.length; iStored++){
 			if (name == storedPlayers[iStored]){
 				playerStored = 1;
 			}
 		}
+		
 		//update player list in local storage if necessary
 		if (playerStored != 1){
 			createPlayerField(name);
@@ -403,6 +448,7 @@ function restoreGame(){
 		}	
 	}
 	
+	//creates an array of scores from storage that needs to be displayed
 	for (var index = 0; index < data.length; index += 8){
 		name = data[index];
 		inputArray = createInputBoxArray(name);
@@ -411,13 +457,19 @@ function restoreGame(){
 			
 			scores.push(data[index + count]);
 		}
+		
+		//displays scores
 		for (var iInput = 0; iInput < 8; iInput++){
 			document.getElementById(inputArray[iInput]).value = scores[iInput];
 		}
+		
+		//needed that scores are summed after game is restored
 		getScore(inputArray);
 	}
 }
 
+
+//retrieves leaderboard from database
 function getLeaderBoard(winner){
 	
 	var ajaxRequest = new XMLHttpRequest();
@@ -425,6 +477,7 @@ function getLeaderBoard(winner){
 	
 	ajaxRequest.open("GET", "https://shanghai-rummy-11.firebaseio.com/leaderboard.json", true);
 	
+	//performs get request
 	ajaxRequest.onreadystatechange = function (){
 		if (ajaxRequest.readyState === 4) {
 			var status = ajaxRequest.status;
@@ -434,12 +487,13 @@ function getLeaderBoard(winner){
 				var leaders = object.leaderboard;
 				
 				if (winner != null){
-					updateLeaderboard(leaders,winner);
+					updateLeaderboard(leaders,winner); //update leaderboard if a winner is passed
 				} else {
-					displayLeaderBoard(leaders);
+					displayLeaderBoard(leaders); //display the leaderboard after retrieval
 				}					
 			} else {
-				alert ("Something went wrong with getRequest");
+				document.getElementById('errorDiv').innerHTML = "Something went wrong with getRequest";
+				removeMessageTimer('errorDiv');
 			}
 				
 		}
@@ -447,19 +501,7 @@ function getLeaderBoard(winner){
 	ajaxRequest.send(null);
 }
 
-function patchLeaderBoard(data){
-	var ajaxRequest = new XMLHttpRequest();
-	var referenceKey = "-LHW8NKUtdR_rkCIkgKo";
-	var targetUrl = "https://shanghai-rummy-11.firebaseio.com/leaderboard/" + 
-	referenceKey + ".json"
-	ajaxRequest.open("PATCH","https://shanghai-rummy-11.firebaseio.com/leaderboard.json", true);
-	ajaxRequest.onreadystatechange = function(){
-		if (this.readyState == 4 && this.status == 200){
-			ajaxRequest.send(JSON.stringify(data));
-		}
-	};
-}
-
+//update leaderboard in database
 function postRequest(data){
 
 	var ajaxRequest = new XMLHttpRequest();
@@ -475,8 +517,10 @@ function postRequest(data){
 	ajaxRequest.send(JSON.stringify({leaderboard:data}));
 }
 
+//needed to allow same button to display and then hide the leaderboard
 var leaderBoardClickCount = 0;
 
+//needed to allow same button to display and then hide the leaderboard
 function eventHandlerLeaderBoard(){
 	if (leaderBoardClickCount ==0){
 		getLeaderBoard();
@@ -488,6 +532,7 @@ function eventHandlerLeaderBoard(){
 	}
 }
 
+//performs tasks to hide the leaderboard
 function hideLeaderBoard(){
 	parent = document.getElementById('leaderboard');
 	child = document.getElementById('highScores');
@@ -496,8 +541,9 @@ function hideLeaderBoard(){
 	parent.removeChild(element);
 }
 
+//displays the leaderboard
 function displayLeaderBoard(data){
-	//moved this
+
 	leaderBoardClickCount++;
 	
 	var leaders = data;
@@ -524,12 +570,11 @@ function displayLeaderBoard(data){
 	var row8 = newTable.insertRow(8);
 	var row9 = newTable.insertRow(9);
 	var row10 = newTable.insertRow(10);
-	var rows = [row1,row2,row3,row4,row5,row6,row7,row8,row9,row10];
+	
 	var header1 = document.createElement("TH");
 	var header2 = document.createElement("TH");
 	var header3 = document.createElement("TH");
-	var headers = [header1,header2,header3];
-	var headerValues = ['#','Name','Score'];
+
 	var newData1 = row1.insertCell(0);
 	var newData2 = row1.insertCell(1);
 	var newData3 = row1.insertCell(2);
@@ -567,12 +612,15 @@ function displayLeaderBoard(data){
 		newData21,newData22,newData23,newData24,newData25,
 		newData26,newData27,newData28,newData29,newData30];
 	
+	var rows = [row1,row2,row3,row4,row5,row6,row7,row8,row9,row10];
+	var headers = [header1,header2,header3];
+	var headerValues = ['#','Name','Score'];
 	
 	for (var index = 0; index < 3; index++){
 		headers[index].innerHTML = headerValues[index];
 		row0.appendChild(headers[index]);
 	}
-	
+
 	newData1.innerHTML = 1;
 	newData2.innerHTML = leaders[0];
 	newData3.innerHTML = leaders[1];
@@ -643,52 +691,9 @@ function displayLeaderBoard(data){
 	row10.appendChild(newData29);
 	row10.appendChild(newData30);
 
-	
-	/*for (var index = 0; index < rows.length; index++){
-		var num = (index / 2) + 1;
-		newTable.appendChild(rows[index]);
-	}
-	for (var iRow = 0; iRow < 10; iRow++){
-		for (var iCol = 0; iCol < 3; iCol++){
-			rows[iRow].appendChild(newDatas[iRow + iCol]);
-		}
-	}
-	
-	var lCount = 0;
-	var newRow = true;
-	for (var iRow = 0; index < 10; index++){
-		for (var iCol = 0; iCol < 3; iCol++){
-			if (newRow){
-				var nums = [1,2,3,4,5,6,7,8,9,10];
-				newDatas[iRow + iCol].innerHTML = nums[iRow];
-				newRow = false;
-			} else {		
-				newDatas[iRow + iCol].innerHTML = leaders[lCount];
-				lCount++
-			}
-		}
-		newRow = true;
-	}
-	/*
-		for (var iLeaders = 0; iLeaders < 3; iLeaders++){
-			if (iLeaders != 0){
-				var inc = index + iLeaders - 1;
-			newDatas[index + iLeaders].innerHTML = leaders[inc];
-			rows[index + iLeaders].appendChild(newDatas[index + iLeaders]);
-			} else {
-				newDatas[index + iLeaders].innerHTML = num;
-			}
-		}
-	
-	/*
-    for (var index = 0; index < leaders.length; index += 2){
-		var num = (index / 2) + 1;
-		output += num + " " + leaders[index] + " " + leaders[index + 1] + '<br>';
-		document.getElementById("leaderboard").innerHTML = output;
-    }*/
-	
 }
-	
+
+//used when first creating leaderboard keeping for when leaderboard needs to be reset.	
 function createLeaderboard(){ //used to debug updateLeaderboard
 	var leaderboard = [
 		'Anonymous',1000,
@@ -705,11 +710,13 @@ function createLeaderboard(){ //used to debug updateLeaderboard
 	updateLeaderboard(leaderboard,playerInfo);
 }
 
+//compares current winner info against leaderboard and updates if necessary
 function updateLeaderboard(data, playerInfo){
 	var leaderboard = data;
-	
 	var temp1 = playerInfo;
 	var temp2;
+	
+	//compares scores
 	for (var index = 0; index < leaderboard.length; index += 2){
 		temp2 = [leaderboard[index],leaderboard[index + 1]];
 		for (var objectIndex = 0; objectIndex < 2; objectIndex++)
@@ -724,12 +731,15 @@ function updateLeaderboard(data, playerInfo){
 			}
 		}
 	}	
-		
+	
+	//sends leaderboard to be stored in database
 	postRequest(leaderboard);
 }
 
+//counts how many times colorShift button is clicked
 var countColorClicks = 0;
 
+//uses countColorClicks to determine which color function to call
 function colorShift(){
 	if (countColorClicks == 0){
 		countColorClicks++;
@@ -740,89 +750,106 @@ function colorShift(){
 	}
 }
 
+//changes display to blue theme
 function colorBlue(){
 	var colorShift = document.getElementsByClassName("colorShift");
 	var list = getPlayerList();
+	
+	//performs CSS class property manipulation on header and enjoy div
 	for (var index = 0; index < colorShift.length; index++){
 		colorShift[index].style.background = "darkBlue";
 	}
+	
+	//adjusts body styles
 	var element = document.getElementById("body");
 	element.style.transition = "background 2.0s ease-in 0.1s";
 	element.style.background = "lightBlue";
 	element.style.color = "darkBlue";
+	
+	//adjusts fieldset text color
 	for (var index = 0; index < list.length; index++){
 		var field = document.getElementById('player'+ list[index]);
-		//field.style.transition = "background 2.0s ease-in 0.1s";
-		//field.style.background = "blue";
 		field.style.color = "darkBlue";
 	}
+	
+	//adjusts input box styles
 	var input = document.getElementsByTagName("INPUT");
 	for (var index = 0; index < input.length; index++){
 		input[index].style.transition = "background 2.0s ease-in 0.1s";
 		input[index].style.background = "lightBlue";
 		input[index].style.color = "darkBlue";
 	}
+	
+	//adjusts hands div styles
 	var hands = document.getElementById("hands");
 	hands.style.transition = "background 2.0s ease-in 0.1s";
 	hands.style.background = "lightBlue";
 	hands.style.color = "darkBlue";	 
+	
+	//adjusts button styles
 	var buttons = document.getElementsByClassName('btn');
 	for (var index = 0; index < buttons.length; index++){
 		buttons[index].style.transition = "background 2.0s ease-in 0.1s";
 		buttons[index].style.background = "darkBlue";
 		buttons[index].style.color = "white";
 	}
+	
+	//adjusts style of player name input box
 	var playerInput = document.getElementById('playerName');
 	playerInput.style.background = "white";
 	
 }
 
+//changes display to green theme
 function colorGreen(){
 	var colorShift = document.getElementsByClassName("colorShift");
 	var list = getPlayerList();
+	
+	//performs CSS class property manipulation on header and enjoy div
 	for (var index = 0; index < colorShift.length; index++){
 		colorShift[index].style.background = "rgba(0,111,11,1)";
 	}
+	
+	//adjusts body styles
 	var element = document.getElementById("body");
 	element.style.transition = "background 2.0s ease-in 0.1s";
 	element.style.background = "rgba(208,230,240,1)";
 	element.style.color = "rgba(0,75,0,1)";
 	
+	//adjusts fieldset text color
 	for (var index = 0; index < list.length; index++){
 		var field = document.getElementById('player'+ list[index]);
-	//	field.style.transition = "background 2.0s ease-in 0.1s";
-	//	field.style.background = "rgba(152,251,152,1)";
 		field.style.color = "rgba(0,75,0,1)";
 	}
-	var input = document.getElementsByTagName("INPUT");
 	
+	//adjusts input box styles
+	var input = document.getElementsByTagName("INPUT");
 	for (var index = 0; index < input.length; index++){
 		input[index].style.transition = "background 2.0s ease-in 0.1s";
 		input[index].style.background = "rgba(119,252,130,.5)";
 		input[index].style.color = "rgba(0,75,0,1)";
 	}
+	
+	//adjusts hands div styles
 	var hands = document.getElementById("hands");
 	hands.style.transition = "background 2.0s ease-in 0.1s";
 	hands.style.background = "rgba(119,252,130,.5)";
-	hands.style.color = "rgba(0,75,0,1)";	 
+	hands.style.color = "rgba(0,75,0,1)";
+
+	//adjusts button styles
 	var buttons = document.getElementsByClassName('btn');
-	
 	for (var index = 0; index < buttons.length; index++){
 		buttons[index].style.transition = "background 2.0s ease-in 0.1s";
 		buttons[index].style.background = "rgba(0,111,11,1)";
 		buttons[index].style.color = "white";
 	}
+	
+	//adjusts style of player name input box
 	var playerInput = document.getElementById('playerName');
 	playerInput.style.background = "white";
 }
 
-function colorReturn(){
-	var colorShift = document.getElementsByClassName("colorShift");
-	for (var index = 0; index < colorShift.length; index++){
-		colorShift[index].style.background = "rgba(0, 111, 11, 1)";
-	}
-}
-
+//plays jingle sound when jester div is clicked
 function playJingle(){
 	var audio = document.getElementById("bell");
 	audio.play();
