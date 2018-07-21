@@ -795,16 +795,18 @@ function colorGreen(){
 		field.style.color = "rgba(0,75,0,1)";
 	}
 	var input = document.getElementsByTagName("INPUT");
+	
 	for (var index = 0; index < input.length; index++){
 		input[index].style.transition = "background 2.0s ease-in 0.1s";
-		input[index].style.background = "rgba(152,251,152,1)";
+		input[index].style.background = "rgba(119,252,130,.5)";
 		input[index].style.color = "rgba(0,75,0,1)";
 	}
 	var hands = document.getElementById("hands");
 	hands.style.transition = "background 2.0s ease-in 0.1s";
-	hands.style.background = "rgba(152,251,152,1)";
+	hands.style.background = "rgba(119,252,130,.5)";
 	hands.style.color = "rgba(0,75,0,1)";	 
 	var buttons = document.getElementsByClassName('btn');
+	
 	for (var index = 0; index < buttons.length; index++){
 		buttons[index].style.transition = "background 2.0s ease-in 0.1s";
 		buttons[index].style.background = "rgba(0,111,11,1)";
