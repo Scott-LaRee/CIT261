@@ -414,8 +414,9 @@ function getLeaderBoard(winner){
 				
 				if (winner != null){
 					updateLeaderboard(leaders,winner);
-				}
-				displayLeaderBoard(leaders);		
+				} else {
+					displayLeaderBoard(leaders);
+				}					
 			} else {
 				alert ("Something went wrong with getRequest");
 			}
@@ -458,7 +459,6 @@ var leaderBoardClickCount = 0;
 function eventHandlerLeaderBoard(){
 	if (leaderBoardClickCount ==0){
 		getLeaderBoard();
-		leaderBoardClickCount++;
 		document.getElementById('ldrbrd').innerHTML = 'Hide Leaderboard';
 	} else {
 		hideLeaderBoard();
@@ -476,6 +476,9 @@ function hideLeaderBoard(){
 }
 
 function displayLeaderBoard(data){
+	//moved this
+	leaderBoardClickCount++;
+	
 	var leaders = data;
 	var output = '';
 	var div = document.getElementById('leaderboard');
