@@ -543,9 +543,9 @@ function hideLeaderBoard(){
 
 //displays the leaderboard
 function displayLeaderBoard(data){
+	//prevent duplicat leaderboards being displayed
 	if(leaderBoardClickCount != 0){
 		hideLeaderBoard();
-		document.getElementById('ldrbrd').innerHTML = 'Hide Leaderboard';
 	}
 	leaderBoardClickCount++;
 	
@@ -693,7 +693,8 @@ function displayLeaderBoard(data){
 	row10.appendChild(newData28);
 	row10.appendChild(newData29);
 	row10.appendChild(newData30);
-
+	
+	document.getElementById('ldrbrd').innerHTML = 'Hide Leaderboard';
 }
 
 //used when first creating leaderboard keeping for when leaderboard needs to be reset.	
