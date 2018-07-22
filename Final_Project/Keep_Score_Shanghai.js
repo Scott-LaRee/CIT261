@@ -551,7 +551,7 @@ function displayLeaderBoard(data){
 	var div = document.getElementById('leaderboard');
 	var newH2 = document.createElement('H2');
 	
-	var newText = document.createTextNode("High Scores");
+	var newText = document.createTextNode("Leaders");
 	newH2.appendChild(newText);
 	div.appendChild(newH2);
 	
