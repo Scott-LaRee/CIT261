@@ -290,7 +290,7 @@ function displayWinner(){
 		output = "The winners are " + winner[0] +
 		" with a score of " + winner[1] + ".";
 		} else {
-		output = "Please enter some scores before declaring a winner.";
+		output = "Please enter scores for at least 2 players before declaring a winner.";
 		}
 	}
 	
@@ -543,7 +543,10 @@ function hideLeaderBoard(){
 
 //displays the leaderboard
 function displayLeaderBoard(data){
-
+	if(leaderBoardClickCount != 0){
+		hideLeaderBoard();
+		document.getElementById('ldrbrd').innerHTML = 'Hide Leaderboard';
+	}
 	leaderBoardClickCount++;
 	
 	var leaders = data;
@@ -854,3 +857,5 @@ function playJingle(){
 	var audio = document.getElementById("bell");
 	audio.play();
 }
+
+
