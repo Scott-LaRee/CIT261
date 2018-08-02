@@ -63,7 +63,8 @@
    <!--<button type="button" onclick="createLeaderboard()">Create Leaderboard</button>-->
    <div id="enjoy" class="colorShift">
    <p ontouchstart="this.innerHTML = 'Have Fun!'" ontouchend="this.innerHTML = 'Enjoy Your Game!'">Enjoy Your Game!</p>
-   </div>   
+   </div> 
+	<div id="numHandsDiv"></div>
 	<div id="btnDiv">
 	<button type="button" class='btn' onclick="displayWinner()">Declare Winner</button>
 	<button type="button" class='btn' onclick="saveGame()">Save Game</button>
@@ -71,6 +72,8 @@
 	<button type="button" class='btn' onclick="deleteSavedGame()">Delete Saved</button>
 	<button type="button" class='btn' onclick="eventHandlerLeaderBoard()" id ='ldrbrd'>View Leaderboard</button>
 	<button type="button" class='btn' onclick="clearGame()">Clear Game</button><br>
+	<button type="button" class='btn' onclick="addRound()">Add Round</button>
+	<button type="button" class='btn' onclick="removeRound()">Remove Round</button>
 	<button type="button" class='btn' onclick="colorShift()">Color Shift</button><br>
 	</div>
 	

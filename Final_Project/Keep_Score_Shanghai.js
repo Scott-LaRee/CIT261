@@ -1,15 +1,70 @@
 // check local storage for stored player list and send it to build player field
 function detectPlayers(){
+	playerDiv = document.getElementById('playerDiv');
+		while (playerDiv.firstChild){
+		playerDiv.removeChild(playerDiv.firstChild);
+	}
 	var playerList = getPlayerList();
 	if (playerList != null){
 		for (var index = 0; index < playerList.length; index++){
 			createPlayerField(playerList[index]);
 		}
 	}
+} 
+
+function storeNumHands(num){
+	localStorage.setItem("numHands", JSON.stringify(num));
+}
+
+function getNumHands(){
+	var num = localStorage.getItem('numHands');
+	if (num != null){
+		var numHands = JSON.parse(num);
+	} else {
+		var numHands = 7;
+	}
+		
+	//prevents numHands error
+	if (numHands < 7 || numHands == ""){
+		numHands = 7;
+	} else if (numHands > 10){
+		numHands = 10;
+	}
+	
+	return numHands;
+}
+
+function addRound(){
+	var numHands = getNumHands();
+	if (numHands < 10){
+		numHands ++;
+	} else {
+		var message = "10 hands is the maximum";
+		document.getElementById("numHandsDiv").innerHTML = message;
+		removeMessageTimer("numHandsDiv");
+	}
+	storeNumHands(numHands);
+	detectPlayers();
+}
+
+function removeRound(){
+	var numHands = getNumHands();
+	
+	if (numHands > 7){
+		numHands--;
+	} else {
+		var message = "7 hands is the minimum";
+		document.getElementById("numHandsDiv").innerHTML = message;
+		removeMessageTimer("numHandsDiv");
+	}
+
+	storeNumHands(numHands);
+	detectPlayers();
 }
 
 //creates the player score fields with DOM
 function createPlayerField(name){
+	
 	var playerDiv = document.getElementById('playerDiv');
 	var newFieldSet = document.createElement("fieldset");
 	newFieldSet.setAttribute('id','player' + name);
@@ -22,7 +77,7 @@ function createPlayerField(name){
 
 	var inputBoxArray = createInputBoxArray(name);
 	
-	var fieldText = ["1:","2:","3:","4:","5:","6:","7:","Total:"];
+	var fieldText = createFieldText();
 	
 		//adds input boxes to fieldset
 	for (var index = 0; index < inputBoxArray.length; index++){
@@ -43,11 +98,38 @@ function createPlayerField(name){
 	}
 }
 
+function createFieldText(){
+	var fieldText = ["1:","2:","3:","4:","5:","6:","7:"];
+	var numHands = getNumHands();
+	if (numHands > 7){
+			fieldText.push("8:");
+			if (numHands > 8){
+				fieldText.push("9:");
+				if (numHands > 9){
+					fieldText.push("10");
+				}
+			}
+		}
+	fieldText.push("Total:");
+	return fieldText;
+}
+
 //creates an array holding the input box id names 
 function createInputBoxArray(name){
+	var numHands = getNumHands();
 	var inputBoxArray = [name + "Hand1", name + 
 		"Hand2", name + "Hand3", name + "Hand4", name + 
-		"Hand5", name + "Hand6", name + "Hand7",name + "TotalScore"];
+		"Hand5", name + "Hand6", name + "Hand7"];
+	if (numHands > 7){
+		inputBoxArray.push(name + "Hand8");
+		if (numHands > 8){
+			inputBoxArray.push(name + "Hand9");
+			if (numHands > 9){
+				inputBoxArray.push(name + "Hand10");
+			}
+		}
+	}
+	inputBoxArray.push(name + "TotalScore");
 	return inputBoxArray;
 }
 
@@ -215,7 +297,7 @@ function getScore(inputArray){
     }
     }
    
-    document.getElementById(inputArray[7]).value = sum;
+    document.getElementById(inputArray[inputArray.length - 1]).value = sum;
 }
 
 //determines the winner
@@ -543,7 +625,6 @@ function hideLeaderBoard(){
 
 //displays the leaderboard
 function displayLeaderBoard(data){
-	//prevent duplicat leaderboards being displayed
 	if(leaderBoardClickCount != 0){
 		hideLeaderBoard();
 	}
@@ -693,7 +774,7 @@ function displayLeaderBoard(data){
 	row10.appendChild(newData28);
 	row10.appendChild(newData29);
 	row10.appendChild(newData30);
-	
+
 	document.getElementById('ldrbrd').innerHTML = 'Hide Leaderboard';
 }
 
